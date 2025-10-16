@@ -1,0 +1,15 @@
+# Bağımlılıklar
+/node_modules
+
+# Üretim dosyaları
+/build
+/dist
+
+# Gizli dosyalar
+.env
+.env.local
+
+# Loglar
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
