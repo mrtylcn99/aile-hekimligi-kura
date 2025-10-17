@@ -1,39 +1,22 @@
 import axios from 'axios';
 
-// API URL'yi dinamik olarak belirle
-function getApiUrl() {
-  // Environment variable varsa kullan
-  if (process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
+// API URL - Production or Development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-  // Tarayıcıdan erişilen hostname'i al
-  const hostname = window.location.hostname;
-
-  // Eğer localhost veya 127.0.0.1 ise
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return 'http://localhost:5000';
-  }
-
-  // Başka bir IP'den erişiliyorsa (mobil cihaz)
-  return `http://${hostname}:5000`;
-}
-
-const API_URL = getApiUrl();
-console.log('API URL:', API_URL);
-
-// Axios instance oluştur
+// Create axios instance
 const axiosInstance = axios.create({
   baseURL: API_URL,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
-// Request interceptor - her istekte token ekle
+// Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token') || document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
+    // Add auth token if exists
+    const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -44,17 +27,20 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Response interceptor - hata yönetimi
+// Response interceptor
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token geçersiz veya süresi dolmuş
+      // Unauthorized - redirect to login
       localStorage.removeItem('token');
       window.location.href = '/login';
     }
     return Promise.reject(error);
   }
 );
+
+// Set default axios to use our instance
+axios.defaults = axiosInstance.defaults;
 
 export default axiosInstance;

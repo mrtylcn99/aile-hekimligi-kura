@@ -39,8 +39,14 @@ const LoginMobile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Basic TC validation - just check length
     if (tcKimlik.length !== 11) {
       toast.error('TC Kimlik numarası 11 haneli olmalıdır');
+      return;
+    }
+
+    if (!password) {
+      toast.error('Şifre alanı boş bırakılamaz');
       return;
     }
 
@@ -50,7 +56,8 @@ const LoginMobile = () => {
       toast.success('Giriş başarılı! Yönlendiriliyorsunuz...');
       setTimeout(() => navigate('/'), 1000);
     } catch (error) {
-      toast.error(error.message || 'Giriş başarısız!');
+      console.error('Login error:', error);
+      toast.error(error.message || 'Giriş başarısız! TC kimlik veya şifre hatalı.');
     }
     setIsLoading(false);
   };
