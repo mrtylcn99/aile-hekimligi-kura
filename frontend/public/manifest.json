@@ -1,7 +1,7 @@
 {
   "short_name": "Aile Hekimliği",
-  "name": "Aile Hekimliği Kura",
-  "description": "İstanbul İl Sağlık Müdürlüğü Aile Hekimliği Kura Başvuru Sistemi",
+  "name": "Aile Hekimliği Kura Sistemi",
+  "description": "T.C. Sağlık Bakanlığı İstanbul İl Sağlık Müdürlüğü Aile Hekimliği Kura Başvuru Sistemi",
   "icons": [
     {
       "src": "favicon.ico",
@@ -12,23 +12,71 @@
       "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "minimal-ui", "standalone", "browser"],
   "theme_color": "#ff6b35",
-  "background_color": "#ffffff",
-  "orientation": "portrait",
+  "background_color": "#ff6b35",
+  "orientation": "portrait-primary",
   "scope": "/",
   "lang": "tr-TR",
-  "categories": ["medical", "health"],
+  "dir": "ltr",
+  "categories": ["medical", "health", "government"],
   "prefer_related_applications": false,
-  "related_applications": []
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Kura Listesi",
+      "short_name": "Kura",
+      "description": "Kura listesini görüntüle",
+      "url": "/kura-listesi",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Başvurularım",
+      "short_name": "Başvuru",
+      "description": "Başvurularımı görüntüle",
+      "url": "/basvurularim",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "type": "image/png",
+      "sizes": "540x720",
+      "platform": "narrow",
+      "label": "Giriş Ekranı"
+    },
+    {
+      "src": "screenshot2.png",
+      "type": "image/png",
+      "sizes": "720x540",
+      "platform": "wide",
+      "label": "Ana Sayfa"
+    }
+  ],
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  "gcm_sender_id": "103953800507"
 }

@@ -1,5 +1,5 @@
 // Service Worker for Aile Hekimliği Kura Sistemi
-const CACHE_NAME = 'aile-hekimligi-v1';
+const CACHE_NAME = 'aile-hekimligi-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -8,7 +8,8 @@ const urlsToCache = [
   '/manifest.json',
   '/favicon.ico',
   '/logo192.png',
-  '/logo512.png'
+  '/logo512.png',
+  '/offline.html'
 ];
 
 // Install event - cache assets

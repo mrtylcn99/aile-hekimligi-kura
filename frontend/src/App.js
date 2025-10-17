@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 
 // Lazy load pages for better performance
 const LoginModern = lazy(() => import('./pages/LoginModern'));
+const LoginMobile = lazy(() => import('./pages/LoginMobile'));
 const Register = lazy(() => import('./pages/Register'));
 const DashboardModern = lazy(() => import('./pages/DashboardModern'));
 const ProfileNew = lazy(() => import('./pages/ProfileNew'));
@@ -42,6 +43,9 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Choose login component based on device type
+  const LoginComponent = isMobile ? LoginMobile : LoginModern;
+
   return (
     <AuthProvider>
       <div className="App">
@@ -51,7 +55,7 @@ function App() {
           <div className="container">
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
-              <Route path="/login" element={<LoginModern />} />
+              <Route path="/login" element={<LoginComponent />} />
               <Route path="/register" element={<Register />} />
               <Route path="/" element={<ProtectedRoute><DashboardModern /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><ProfileNew /></ProtectedRoute>} />
