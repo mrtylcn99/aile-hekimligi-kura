@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(compression());
 
 // Routes
-app.use('/api/auth', require('./routes/auth-mongo'));
+app.use('/api/auth', require('./routes/auth'));
 
 // Health check
 app.get('/', (req, res) => {
