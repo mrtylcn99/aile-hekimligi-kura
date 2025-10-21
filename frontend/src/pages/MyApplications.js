@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
-import { FiCheck, FiX, FiClock } from 'react-icons/fi';
+import { FiCheck, FiX, FiClock, FiFileText, FiUsers, FiDownload } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import '../styles/my-applications.css';
 
 const MyApplications = () => {
-  // const [applications, setApplications] = useState([]);
+  const [applications, setApplications] = useState([]);
   const [tercihler, setTercihler] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('basvurular');
@@ -28,30 +29,28 @@ const MyApplications = () => {
     }
   };
 
-  // PDF indirme fonksiyonu - ileride kullanılabilir
-  // const downloadPDF = (pdfPath) => {
-  //   if (pdfPath) {
-  //     const fileName = pdfPath.split('/').pop();
-  //     const link = document.createElement('a');
-  //     link.href = `/exports/${fileName}`;
-  //     link.download = fileName;
-  //     link.click();
-  //   }
-  // };
+  const downloadPDF = (pdfPath) => {
+    if (pdfPath) {
+      const fileName = pdfPath.split('/').pop();
+      const link = document.createElement('a');
+      link.href = `/exports/${fileName}`;
+      link.download = fileName;
+      link.click();
+    }
+  };
 
-  // Tercih icon fonksiyonu - ileride kullanılabilir
-  // const getTercihIcon = (durum) => {
-  //   switch (durum) {
-  //     case 'kabul':
-  //       return <FiCheck color="green" />;
-  //     case 'red':
-  //       return <FiX color="red" />;
-  //     case 'pas':
-  //       return <FiClock color="orange" />;
-  //     default:
-  //       return <FiClock color="gray" />;
-  //   }
-  // };
+  const getTercihIcon = (durum) => {
+    switch (durum) {
+      case 'kabul':
+        return <FiCheck color="green" />;
+      case 'red':
+        return <FiX color="red" />;
+      case 'pas':
+        return <FiClock color="orange" />;
+      default:
+        return <FiClock color="gray" />;
+    }
+  };
 
   const getTercihBadge = (durum) => {
     const styles = {
@@ -86,39 +85,65 @@ const MyApplications = () => {
     <div>
       <h2>Başvurularım ve Tercihlerim</h2>
 
-      <div style={{ marginBottom: '20px' }}>
-        <div style={{ display: 'flex', gap: '10px', borderBottom: '2px solid #ddd' }}>
+      <div className="tab-container">
+        <div className="tab-buttons">
           <button
-            className={`btn ${activeTab === 'basvurular' ? 'btn-primary' : 'btn-secondary'}`}
+            className={`tab-button ${activeTab === 'basvurular' ? 'active' : ''}`}
             onClick={() => setActiveTab('basvurular')}
-            style={{ borderRadius: '5px 5px 0 0' }}
           >
+            <FiFileText className="tab-icon" />
             Başvuru Formlarım
           </button>
           <button
-            className={`btn ${activeTab === 'tercihler' ? 'btn-primary' : 'btn-secondary'}`}
+            className={`tab-button ${activeTab === 'tercihler' ? 'active' : ''}`}
             onClick={() => setActiveTab('tercihler')}
-            style={{ borderRadius: '5px 5px 0 0' }}
           >
+            <FiUsers className="tab-icon" />
             Kura Tercihlerim ({tercihler.length})
           </button>
         </div>
       </div>
 
       {activeTab === 'basvurular' && (
-        <div className="card">
-          <p style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-            Henüz kayıtlı başvuru formunuz bulunmamaktadır.
-            <br />
-            <a href="/basvuru-formu" style={{ color: '#007bff', marginTop: '10px', display: 'inline-block' }}>
-              Yeni başvuru formu oluştur
-            </a>
-          </p>
+        <div className="tab-content">
+          {applications.length > 0 ? (
+            <div className="applications-grid">
+              {applications.map(app => (
+                <div key={app.id} className="application-card">
+                  <div className="app-header">
+                    <h4>{app.title}</h4>
+                    <span className="app-date">{app.date}</span>
+                  </div>
+                  <div className="app-body">
+                    <p>{app.description}</p>
+                  </div>
+                  <div className="app-footer">
+                    <button
+                      className="btn-pdf"
+                      onClick={() => downloadPDF(app.pdfPath)}
+                    >
+                      <FiDownload /> PDF İndir
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <p>
+                Henüz kayıtlı başvuru formunuz bulunmamaktadır.
+                <br />
+                <a href="/basvuru-formu" className="link-primary">
+                  Yeni başvuru formu oluştur
+                </a>
+              </p>
+            </div>
+          )}
         </div>
       )}
 
       {activeTab === 'tercihler' && (
-        <div className="card">
+        <div className="tab-content">
           {tercihler.length > 0 ? (
             <div style={{ overflowX: 'auto' }}>
               <table className="table">

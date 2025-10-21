@@ -33,6 +33,9 @@ app.use(compression());
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/user', require('./routes/user'));
+app.use('/api/kura', require('./routes/kura'));
+app.use('/api/pdf', require('./routes/pdf'));
 
 // Health check
 app.get('/', (req, res) => {

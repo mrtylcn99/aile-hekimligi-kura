@@ -203,7 +203,7 @@ const DashboardModern = () => {
       {/* Stats Cards */}
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-icon" style={{background: 'linear-gradient(135deg, #ff6b35, #ff8c42)'}}>
+          <div className="stat-icon stat-icon-primary">
             <FiMapPin />
           </div>
           <div className="stat-content">
@@ -215,13 +215,13 @@ const DashboardModern = () => {
               </span>
             </div>
             <div className="stat-progress">
-              <div className="progress-bar" style={{width: '75%'}}></div>
+              <div className="progress-bar" data-width="75"></div>
             </div>
           </div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon" style={{background: 'linear-gradient(135deg, #3b82f6, #60a5fa)'}}>
+          <div className="stat-icon stat-icon-blue">
             <FiAward />
           </div>
           <div className="stat-content">
@@ -233,13 +233,13 @@ const DashboardModern = () => {
               </span>
             </div>
             <div className="stat-progress">
-              <div className="progress-bar" style={{width: '60%', background: '#3b82f6'}}></div>
+              <div className="progress-bar progress-blue" data-width="60"></div>
             </div>
           </div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon" style={{background: 'linear-gradient(135deg, #22c55e, #86efac)'}}>
+          <div className="stat-icon stat-icon-green">
             <FiFileText />
           </div>
           <div className="stat-content">
@@ -249,13 +249,13 @@ const DashboardModern = () => {
               <span className="stat-badge">Aktif</span>
             </div>
             <div className="stat-progress">
-              <div className="progress-bar" style={{width: '30%', background: '#22c55e'}}></div>
+              <div className="progress-bar progress-green" data-width="30"></div>
             </div>
           </div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon" style={{background: 'linear-gradient(135deg, #f59e0b, #fbbf24)'}}>
+          <div className="stat-icon stat-icon-yellow">
             <FiClock />
           </div>
           <div className="stat-content">
@@ -265,7 +265,7 @@ const DashboardModern = () => {
               <span className="stat-unit">Gün</span>
             </div>
             <div className="stat-progress">
-              <div className="progress-bar" style={{width: '40%', background: '#f59e0b'}}></div>
+              <div className="progress-bar progress-yellow" data-width="40"></div>
             </div>
           </div>
         </div>

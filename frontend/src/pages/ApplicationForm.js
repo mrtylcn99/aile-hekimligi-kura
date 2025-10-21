@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
-import { FiDownload, FiFileText, FiUser, FiBriefcase, FiPlus } from 'react-icons/fi';
+import { FiDownload, FiFileText, FiUser, FiBriefcase, FiPlus, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 import '../styles/application-form.css';
 
 const ApplicationForm = () => {
@@ -67,22 +67,18 @@ const ApplicationForm = () => {
   return (
     <div className="application-form-container">
       <div className="form-header-card">
-        <div className="emoji-icon">📝</div>
-        <h1 style={{ fontSize: '36px', marginTop: '20px', marginBottom: '10px' }}>Başvuru Formu</h1>
-        <p style={{ fontSize: '20px', opacity: 0.95 }}>🏥 Aile Hekimliği Kura Başvurusu</p>
+        <FiFileText className="form-header-icon" />
+        <h1 className="form-header-title">Başvuru Formu</h1>
+        <p className="form-header-subtitle">Aile Hekimliği Kura Başvurusu</p>
       </div>
 
       {!user.telefon_dogrulanmis && (
-        <div className="modern-card" style={{
-          background: 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)',
-          color: 'white',
-          marginBottom: '30px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <span className="emoji-md">⚠️</span>
+        <div className="alert-card alert-warning">
+          <div className="alert-content">
+            <FiAlertCircle className="alert-icon" />
             <div>
               <strong>Telefon Doğrulaması Gerekli!</strong>
-              <p style={{ margin: '5px 0 0 0', opacity: 0.9 }}>
+              <p className="alert-text">
                 Başvuru formu oluşturabilmek için öncelikle telefon numaranızı doğrulamanız gerekmektedir.
               </p>
             </div>
@@ -92,14 +88,14 @@ const ApplicationForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="modern-card">
-          <h3 style={{ display: 'flex', alignItems: 'center', marginBottom: '25px', color: '#333' }}>
-            <span className="emoji-md" style={{ marginRight: '10px' }}>👤</span>
+          <h3 className="section-title">
+            <FiUser className="section-icon" />
             Kişisel Bilgiler
           </h3>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+          <div className="form-grid">
             <div className="form-group">
-              <label className="modern-label">🆔 TC Kimlik No</label>
+              <label className="modern-label">TC Kimlik No</label>
               <input
                 type="text"
                 className="modern-input"
@@ -109,7 +105,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">✏️ Ad</label>
+              <label className="modern-label">Ad</label>
               <input
                 type="text"
                 className="modern-input"
@@ -119,7 +115,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">✏️ Soyad</label>
+              <label className="modern-label">Soyad</label>
               <input
                 type="text"
                 className="modern-input"
@@ -129,7 +125,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">📅 Doğum Tarihi</label>
+              <label className="modern-label">Doğum Tarihi</label>
               <input
                 type="date"
                 className="modern-input"
@@ -138,7 +134,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">📍 Doğum Yeri</label>
+              <label className="modern-label">Doğum Yeri</label>
               <input
                 type="text"
                 className="modern-input"
@@ -147,7 +143,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">📱 Telefon</label>
+              <label className="modern-label">Telefon</label>
               <input
                 type="text"
                 className="modern-input"
@@ -157,7 +153,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">📧 E-posta</label>
+              <label className="modern-label">E-posta</label>
               <input
                 type="email"
                 className="modern-input"
@@ -169,14 +165,14 @@ const ApplicationForm = () => {
         </div>
 
         <div className="modern-card">
-          <h3 style={{ display: 'flex', alignItems: 'center', marginBottom: '25px', color: '#333' }}>
-            <span className="emoji-md" style={{ marginRight: '10px' }}>👨‍⚕️</span>
+          <h3 className="section-title">
+            <FiBriefcase className="section-icon" />
             Mesleki Bilgiler
           </h3>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+          <div className="form-grid">
             <div className="form-group">
-              <label className="modern-label">🔖 Sicil No</label>
+              <label className="modern-label">Sicil No</label>
               <input
                 type="text"
                 className="modern-input"
@@ -186,7 +182,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">🎓 Ünvan</label>
+              <label className="modern-label">Ünvan</label>
               <select
                 className="modern-input"
                 {...register('unvan', { required: 'Ünvan seçimi zorunludur' })}
@@ -200,7 +196,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">🏫 Mezun Olduğu Üniversite</label>
+              <label className="modern-label">Mezun Olduğu Üniversite</label>
               <input
                 type="text"
                 className="modern-input"
@@ -209,7 +205,7 @@ const ApplicationForm = () => {
             </div>
 
             <div className="form-group">
-              <label className="modern-label">📜 Uyum Eğitimi Sertifika No</label>
+              <label className="modern-label">Uyum Eğitimi Sertifika No</label>
               <input
                 type="text"
                 className="modern-input"
@@ -221,13 +217,13 @@ const ApplicationForm = () => {
         </div>
 
         <div className="modern-card">
-          <h3 style={{ display: 'flex', alignItems: 'center', marginBottom: '25px', color: '#333' }}>
-            <span className="emoji-md" style={{ marginRight: '10px' }}>➕</span>
+          <h3 className="section-title">
+            <FiPlus className="section-icon" />
             Ek Bilgiler
           </h3>
 
           <div className="form-group">
-            <label className="modern-label">🗺️ Tercih Edilen İlçeler</label>
+            <label className="modern-label">Tercih Edilen İlçeler</label>
             <input
               type="text"
               className="modern-input"
@@ -237,31 +233,30 @@ const ApplicationForm = () => {
           </div>
 
           <div className="form-group">
-            <label className="modern-label">💭 Açıklama / Notlar</label>
+            <label className="modern-label">Açıklama / Notlar</label>
             <textarea
               className="modern-input"
               {...register('aciklama')}
               rows="4"
               placeholder="Varsa eklemek istediğiniz notlar"
-              style={{ borderRadius: '20px', resize: 'vertical' }}
+              className="form-textarea"
             />
           </div>
         </div>
 
-        <div className="modern-card" style={{ display: 'flex', gap: '15px', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div className="form-actions">
           <button
             type="submit"
             className="btn-modern btn-gradient-blue"
             disabled={loading || !user.telefon_dogrulanmis}
-            style={{ minWidth: '200px' }}
           >
             {loading ? (
               <>
-                <div className="spinner-modern" style={{ width: '20px', height: '20px', display: 'inline-block', marginRight: '10px' }}></div>
+                <div className="spinner-modern small"></div>
                 İşleniyor...
               </>
             ) : (
-              <>🚀 Başvuru Formu Oluştur</>
+              <>Başvuru Formu Oluştur</>
             )}
           </button>
 
@@ -270,30 +265,24 @@ const ApplicationForm = () => {
               type="button"
               className="btn-modern btn-gradient-green"
               onClick={downloadPDF}
-              style={{ minWidth: '200px' }}
-            >
-              <FiDownload style={{ marginRight: '5px' }} /> 📄 PDF İndir
+              >
+              <><FiDownload className="btn-icon" /> PDF İndir</>
             </button>
           )}
         </div>
       </form>
 
       {formData && pdfPath && (
-        <div className="modern-card" style={{
-          background: 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)',
-          color: 'white',
-          textAlign: 'center',
-          marginTop: '30px'
-        }}>
-          <span className="emoji-lg">✅</span>
-          <h3 style={{ marginTop: '20px', marginBottom: '15px' }}>
+        <div className="success-card">
+          <FiCheckCircle className="success-icon" />
+          <h3 className="success-title">
             Başvuru Formu Başarıyla Oluşturuldu!
           </h3>
-          <p style={{ fontSize: '16px', opacity: 0.95, marginBottom: '10px' }}>
-            📋 Formunuz başarıyla oluşturuldu ve kaydedildi.
+          <p className="success-text">
+            Formunuz başarıyla oluşturuldu ve kaydedildi.
           </p>
-          <p style={{ fontSize: '16px', opacity: 0.9 }}>
-            🖨️ PDF dosyanızı indirip çıktı alabilir ve ilgili kuruma teslim edebilirsiniz.
+          <p className="success-subtext">
+            PDF dosyanızı indirip çıktı alabilir ve ilgili kuruma teslim edebilirsiniz.
           </p>
         </div>
       )}
