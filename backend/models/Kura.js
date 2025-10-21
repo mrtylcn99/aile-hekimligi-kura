@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 
 const KuraSchema = new mongoose.Schema({
+  il_kodu: {
+    type: String,
+    required: true,
+    index: true
+  },
+  il_adi: {
+    type: String,
+    required: true
+  },
   sira_no: {
     type: Number,
     required: true
@@ -15,8 +24,7 @@ const KuraSchema = new mongoose.Schema({
   },
   tc_kimlik: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   sicil_no: {
     type: String,
@@ -66,8 +74,10 @@ const KuraSchema = new mongoose.Schema({
   }
 });
 
-KuraSchema.index({ ilce: 1, hizmet_puani: -1 });
-KuraSchema.index({ tc_kimlik: 1 });
+// İl ve TC kimlik için unique index
+KuraSchema.index({ il_kodu: 1, tc_kimlik: 1 }, { unique: true });
+KuraSchema.index({ il_kodu: 1, ilce: 1, hizmet_puani: -1 });
+KuraSchema.index({ il_kodu: 1, sira_no: 1 });
 KuraSchema.index({ sicil_no: 1 });
 
 module.exports = mongoose.model('Kura', KuraSchema);

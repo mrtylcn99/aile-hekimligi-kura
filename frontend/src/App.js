@@ -16,6 +16,7 @@ const KuraList = lazy(() => import('./pages/KuraList'));
 const ApplicationForm = lazy(() => import('./pages/ApplicationForm'));
 const MyApplications = lazy(() => import('./pages/MyApplications'));
 const EmptyPositions = lazy(() => import('./pages/EmptyPositions'));
+const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -34,6 +35,8 @@ const LoadingSpinner = () => (
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const location = window.location.pathname;
+  const isAuthPage = location === '/login' || location === '/register' || location === '/forgot-password';
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,10 +52,10 @@ function App() {
   return (
     <AuthProvider>
       <div className="App">
-        <Navbar />
+        {!isAuthPage && <Navbar />}
 
-        <div className="page-content">
-          <div className="container">
+        <div className={isAuthPage ? "auth-page-content" : "page-content"}>
+          <div className={isAuthPage ? "" : "container"}>
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
               <Route path="/login" element={<LoginComponent />} />
@@ -63,13 +66,14 @@ function App() {
               <Route path="/basvuru-formu" element={<ProtectedRoute><ApplicationForm /></ProtectedRoute>} />
               <Route path="/basvurularim" element={<ProtectedRoute><MyApplications /></ProtectedRoute>} />
               <Route path="/bos-pozisyonlar" element={<ProtectedRoute><EmptyPositions /></ProtectedRoute>} />
+              <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
               <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </Suspense>
           </div>
         </div>
 
-        {isMobile && <BottomNav />}
+        {isMobile && !isAuthPage && <BottomNav />}
       </div>
       <Toaster
         position="top-right"

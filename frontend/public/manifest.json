@@ -1,7 +1,8 @@
 {
-  "short_name": "Aile Hekimliği",
-  "name": "Aile Hekimliği Kura Sistemi",
-  "description": "T.C. Sağlık Bakanlığı İstanbul İl Sağlık Müdürlüğü Aile Hekimliği Kura Başvuru Sistemi",
+  "short_name": "AH Kura",
+  "name": "T.C. Aile Hekimliği Kura Sistemi",
+  "description": "Türkiye Cumhuriyeti Sağlık Bakanlığı Aile Hekimliği Kura Başvuru Sistemi",
+  "id": "aile-hekimligi-kura",
   "icons": [
     {
       "src": "favicon.ico",
@@ -34,8 +35,8 @@
     }
   ],
   "start_url": "/",
-  "display": "fullscreen",
-  "display_override": ["fullscreen", "minimal-ui", "standalone", "browser"],
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "fullscreen"],
   "theme_color": "#ff6b35",
   "background_color": "#ff6b35",
   "orientation": "portrait-primary",

@@ -69,7 +69,7 @@ const Navbar = () => {
       <div className="container">
         <div className="navbar-container">
           <Link to="/" className="navbar-brand" onClick={closeMobileMenu}>
-            Aile Hekimliği Kura Sistemi
+            T.C. Aile Hekimliği Kura Sistemi
           </Link>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

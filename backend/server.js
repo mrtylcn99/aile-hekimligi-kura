@@ -18,10 +18,32 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false
 }));
 
-// CORS - Allow all origins for cloud deployment
+// CORS Configuration
 app.use(cors({
-  origin: true,
-  credentials: true
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:3000',
+      process.env.FRONTEND_URL || 'https://aile-hekimligi.vercel.app'
+    ];
+
+    // Allow requests with no origin (mobile apps)
+    if (!origin) return callback(null, true);
+
+    // Check if origin is allowed
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    }
+
+    // In production, allow the configured frontend URL
+    if (process.env.NODE_ENV === 'production' && origin === process.env.FRONTEND_URL) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('CORS policy violation'));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Body parser
@@ -36,6 +58,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/kura', require('./routes/kura'));
 app.use('/api/pdf', require('./routes/pdf'));
+app.use('/api/pdf-automation', require('./routes/pdf-automation'));
+app.use('/api/provinces', require('./routes/provinces'));
 
 // Health check
 app.get('/', (req, res) => {

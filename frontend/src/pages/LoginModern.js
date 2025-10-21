@@ -218,7 +218,7 @@ const LoginModern = () => {
                 <FiHeart size={60} />
               </motion.div>
               <h1>Aile Hekimliği</h1>
-              <p>Kura Sistemi</p>
+              <p>Türkiye Kura Sistemi</p>
             </motion.div>
 
             <motion.div variants={itemVariants} className="features-list">
@@ -230,7 +230,7 @@ const LoginModern = () => {
                 >
                   <FiMapPin />
                 </motion.div>
-                <span>245+ Pozisyon</span>
+                <span>81 İl, 1000+ Pozisyon</span>
               </div>
               <div className="feature-item">
                 <motion.div
