@@ -5,6 +5,7 @@ import './mobile.css';
 import './styles/modern-ui.css';
 import './styles/dashboard-modern.css';
 import './styles/theme.css';
+import './styles/native-app.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';

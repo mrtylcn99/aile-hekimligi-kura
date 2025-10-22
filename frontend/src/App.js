@@ -11,6 +11,7 @@ const LoginModern = lazy(() => import('./pages/LoginModern'));
 const LoginMobile = lazy(() => import('./pages/LoginMobile'));
 const RegisterModern = lazy(() => import('./pages/RegisterModern'));
 const DashboardModern = lazy(() => import('./pages/DashboardModern'));
+const DashboardNative = lazy(() => import('./pages/DashboardNative'));
 const ProfileNew = lazy(() => import('./pages/ProfileNew'));
 const KuraList = lazy(() => import('./pages/KuraList'));
 const ApplicationForm = lazy(() => import('./pages/ApplicationForm'));
@@ -35,32 +36,53 @@ const LoadingSpinner = () => (
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isStandalone, setIsStandalone] = useState(false);
   const location = window.location.pathname;
   const isAuthPage = location === '/login' || location === '/register' || location === '/forgot-password';
 
   useEffect(() => {
+    // Check if app is running in standalone mode (PWA/APK)
+    const checkStandalone = () => {
+      const isStandalonePWA = window.matchMedia('(display-mode: standalone)').matches ||
+                              window.matchMedia('(display-mode: fullscreen)').matches ||
+                              window.navigator.standalone ||
+                              document.referrer.includes('android-app://') ||
+                              window.location.href.includes('mode=standalone');
+      setIsStandalone(isStandalonePWA);
+    };
+
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
+
+    checkStandalone();
     window.addEventListener('resize', handleResize);
+
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Choose login component based on device type
   const LoginComponent = isMobile ? LoginMobile : LoginModern;
+  // Choose dashboard component based on mode
+  const DashboardComponent = (isMobile || isStandalone) ? DashboardNative : DashboardModern;
+
+  // Show navbar only on desktop or if not in standalone mode
+  const showNavbar = !isAuthPage && !isMobile && !isStandalone;
+  // Show bottom nav on mobile or in standalone mode
+  const showBottomNav = !isAuthPage && (isMobile || isStandalone);
 
   return (
     <AuthProvider>
-      <div className="App">
-        {!isAuthPage && <Navbar />}
+      <div className={`App ${isStandalone ? 'standalone-mode' : ''} ${isMobile ? 'mobile-mode' : 'desktop-mode'}`}>
+        {showNavbar && <Navbar />}
 
-        <div className={isAuthPage ? "auth-page-content" : "page-content"}>
-          <div className={isAuthPage ? "" : "container"}>
+        <div className={isAuthPage ? "auth-page-content" : showBottomNav ? "mobile-page-content" : "page-content"}>
+          <div className={isAuthPage || showBottomNav ? "" : "container"}>
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
               <Route path="/login" element={<LoginComponent />} />
               <Route path="/register" element={<RegisterModern />} />
-              <Route path="/" element={<ProtectedRoute><DashboardModern /></ProtectedRoute>} />
+              <Route path="/" element={<ProtectedRoute><DashboardComponent /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><ProfileNew /></ProtectedRoute>} />
               <Route path="/kura-listesi" element={<ProtectedRoute><KuraList /></ProtectedRoute>} />
               <Route path="/basvuru-formu" element={<ProtectedRoute><ApplicationForm /></ProtectedRoute>} />
@@ -73,7 +95,7 @@ function App() {
           </div>
         </div>
 
-        {isMobile && !isAuthPage && <BottomNav />}
+        {showBottomNav && <BottomNav />}
       </div>
       <Toaster
         position="top-right"

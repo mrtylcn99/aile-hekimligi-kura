@@ -1,5 +1,7 @@
-// Service Worker for Aile Hekimliği Kura Sistemi
-const CACHE_NAME = 'aile-hekimligi-v2';
+// Service Worker for Aile Hekimliği Kura Sistemi - Native App Mode
+const CACHE_NAME = 'aile-hekimligi-v3';
+const STATIC_CACHE = 'static-v3';
+const DYNAMIC_CACHE = 'dynamic-v3';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -8,8 +10,7 @@ const urlsToCache = [
   '/manifest.json',
   '/favicon.ico',
   '/logo192.png',
-  '/logo512.png',
-  '/offline.html'
+  '/logo512.png'
 ];
 
 // Install event - cache assets
