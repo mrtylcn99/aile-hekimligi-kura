@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast';
 // Lazy load pages for better performance
 const LoginModern = lazy(() => import('./pages/LoginModern'));
 const LoginMobile = lazy(() => import('./pages/LoginMobile'));
-const Register = lazy(() => import('./pages/Register'));
+const RegisterModern = lazy(() => import('./pages/RegisterModern'));
 const DashboardModern = lazy(() => import('./pages/DashboardModern'));
 const ProfileNew = lazy(() => import('./pages/ProfileNew'));
 const KuraList = lazy(() => import('./pages/KuraList'));
@@ -59,7 +59,7 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
               <Route path="/login" element={<LoginComponent />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/register" element={<RegisterModern />} />
               <Route path="/" element={<ProtectedRoute><DashboardModern /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><ProfileNew /></ProtectedRoute>} />
               <Route path="/kura-listesi" element={<ProtectedRoute><KuraList /></ProtectedRoute>} />
