@@ -35,8 +35,8 @@
     }
   ],
   "start_url": "/",
-  "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "fullscreen"],
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
   "theme_color": "#ff6b35",
   "background_color": "#ff6b35",
   "orientation": "portrait-primary",
