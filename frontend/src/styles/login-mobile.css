@@ -8,7 +8,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #ffa500 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,13 +27,15 @@
   overflow: hidden;
   z-index: 0;
   pointer-events: none;
+  display: none; /* Hide overwhelming background */
 }
 
 .gradient-circle {
   position: absolute;
   border-radius: 50%;
   filter: blur(40px);
-  opacity: 0.3;
+  opacity: 0.1;
+  display: none;
 }
 
 .circle-1 {
@@ -82,9 +84,9 @@
 /* Main Content */
 .mobile-login-content {
   position: relative;
-  width: calc(100% - 40px);
+  width: calc(100% - 32px);
   max-width: 400px;
-  padding: 20px;
+  padding: 16px;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -93,6 +95,9 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
 /* Logo Section */
@@ -124,14 +129,12 @@
 .logo-icon {
   width: 80px;
   height: 80px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
 }
 
 .logo-icon svg {
@@ -148,25 +151,19 @@
 }
 
 .main-title {
-  font-size: 26px;
-  font-weight: 800;
-  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
   margin: 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(45deg, #fff, #ffe8d6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   letter-spacing: -0.5px;
   display: block;
 }
 
 .subtitle {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 5px 0 0 0;
-  font-weight: 500;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  color: #666;
+  margin: 8px 0 0 0;
+  font-weight: 400;
 }
 
 /* Login Form */
@@ -180,11 +177,10 @@
 /* Form Group */
 .form-group {
   position: relative;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 15px;
+  background: #f8f9fa;
+  border-radius: 12px;
   padding: 0;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #e0e0e0;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -192,15 +188,15 @@
 }
 
 .form-group.focused {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  background: white;
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
   transform: scale(1.02);
 }
 
 .input-icon {
   padding: 15px;
-  color: white;
+  color: #ff6b35;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,14 +212,14 @@
   background: transparent;
   border: none;
   padding: 15px 15px 15px 0;
-  color: white;
+  color: #1a1a1a;
   font-size: 16px;
   outline: none;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .form-group input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: #999;
   font-weight: 400;
 }
 
@@ -232,7 +228,7 @@
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.2);
+  background: #ff6b35;
   padding: 4px 8px;
   border-radius: 8px;
   font-size: 11px;
@@ -244,7 +240,7 @@
   background: none;
   border: none;
   padding: 15px;
-  color: white;
+  color: #666;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -273,7 +269,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: white;
+  color: #666;
   font-size: 14px;
   cursor: pointer;
 }
@@ -286,7 +282,7 @@
 }
 
 .forgot-link {
-  color: white;
+  color: #ff6b35;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -300,21 +296,21 @@
 
 /* Submit Button */
 .submit-button {
-  background: white;
-  color: #ff6b35;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 12px;
   padding: 16px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   margin-top: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .submit-button:hover:not(:disabled) {
@@ -357,13 +353,13 @@
 .test-credentials {
   margin-top: 20px;
   padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #f8f9fa;
   border-radius: 12px;
-  backdrop-filter: blur(5px);
+  border: 1px solid #e0e0e0;
 }
 
 .test-credentials p {
-  color: white;
+  color: #666;
   font-size: 12px;
   margin: 0 0 10px 0;
   text-align: center;
@@ -379,11 +375,11 @@
 }
 
 .credential-item {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: white;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 10px;
-  color: white;
+  color: #333;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
@@ -391,7 +387,8 @@
 }
 
 .credential-item:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #fff5f2;
+  border-color: #ff6b35;
   transform: translateX(5px);
 }
 
@@ -407,18 +404,17 @@
 }
 
 .register-section p {
-  color: white;
+  color: #666;
   font-size: 14px;
   margin: 0;
 }
 
 .register-section a {
-  color: white;
-  font-weight: 700;
+  color: #ff6b35;
+  font-weight: 600;
   text-decoration: none;
   margin-left: 5px;
   transition: opacity 0.2s;
-  text-decoration: underline;
 }
 
 .register-section a:hover {

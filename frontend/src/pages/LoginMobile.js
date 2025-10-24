@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
@@ -398,13 +398,9 @@ const LoginMobile = () => {
         >
           <p>
             Hesabınız yok mu?
-            <motion.a
-              href="/register"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <Link to="/register" style={{ color: '#ff6b35', fontWeight: 600, textDecoration: 'none', marginLeft: '5px' }}>
               Kayıt Olun
-            </motion.a>
+            </Link>
           </p>
         </motion.div>
       </motion.div>

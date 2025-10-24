@@ -64,18 +64,18 @@
   ],
   "screenshots": [
     {
-      "src": "screenshot1.png",
+      "src": "logo512.png",
       "type": "image/png",
-      "sizes": "540x720",
+      "sizes": "512x512",
       "platform": "narrow",
-      "label": "Giriş Ekranı"
+      "label": "Aile Hekimliği Kura Sistemi - Giriş"
     },
     {
-      "src": "screenshot2.png",
+      "src": "logo512.png",
       "type": "image/png",
-      "sizes": "720x540",
+      "sizes": "512x512",
       "platform": "wide",
-      "label": "Ana Sayfa"
+      "label": "Aile Hekimliği Kura Sistemi - Ana Sayfa"
     }
   ],
   "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
