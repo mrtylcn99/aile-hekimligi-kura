@@ -1,83 +1,145 @@
 {
   "short_name": "AH Kura",
   "name": "T.C. Aile Hekimliği Kura Sistemi",
-  "description": "Türkiye Cumhuriyeti Sağlık Bakanlığı Aile Hekimliği Kura Başvuru Sistemi",
-  "id": "aile-hekimligi-kura",
+  "description": "Türkiye Cumhuriyeti Sağlık Bakanlığı Aile Hekimliği Kura Başvuru ve Takip Sistemi",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "theme_color": "#ff6b35",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "tr",
+  "dir": "ltr",
+  "categories": ["medical", "health", "government", "productivity"],
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
+      "src": "/logo192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
-      "src": "logo192.png",
+      "src": "/logo192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "logo512.png",
+      "src": "/logo512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"
     },
     {
-      "src": "logo512.png",
+      "src": "/logo512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
-    }
-  ],
-  "start_url": "/",
-  "display": "fullscreen",
-  "display_override": ["fullscreen", "standalone"],
-  "theme_color": "#ff6b35",
-  "background_color": "#ff6b35",
-  "orientation": "portrait-primary",
-  "scope": "/",
-  "lang": "tr-TR",
-  "dir": "ltr",
-  "categories": ["medical", "health", "government"],
-  "prefer_related_applications": false,
-  "related_applications": [],
-  "shortcuts": [
-    {
-      "name": "Kura Listesi",
-      "short_name": "Kura",
-      "description": "Kura listesini görüntüle",
-      "url": "/kura-listesi",
-      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Başvurularım",
-      "short_name": "Başvuru",
-      "description": "Başvurularımı görüntüle",
-      "url": "/basvurularim",
-      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
     }
   ],
   "screenshots": [
     {
-      "src": "logo512.png",
+      "src": "/logo512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "platform": "narrow",
-      "label": "Aile Hekimliği Kura Sistemi - Giriş"
+      "form_factor": "narrow",
+      "label": "Giriş Ekranı - Mobil görünüm"
     },
     {
-      "src": "logo512.png",
+      "src": "/logo512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "platform": "wide",
-      "label": "Aile Hekimliği Kura Sistemi - Ana Sayfa"
+      "form_factor": "wide",
+      "label": "Ana Sayfa - Desktop görünüm"
     }
   ],
-  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
-  "gcm_sender_id": "103953800507"
+  "shortcuts": [
+    {
+      "name": "Yeni Başvuru",
+      "short_name": "Başvuru",
+      "description": "Hızlı başvuru yap",
+      "url": "/basvuru-formu?source=pwa",
+      "icons": [
+        {
+          "src": "/logo192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Kura Listesi",
+      "short_name": "Kuralar",
+      "description": "Açık pozisyonları görüntüle",
+      "url": "/kura-listesi?source=pwa",
+      "icons": [
+        {
+          "src": "/logo192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Başvurularım",
+      "short_name": "Takip",
+      "description": "Başvuru durumunu kontrol et",
+      "url": "/basvurularim?source=pwa",
+      "icons": [
+        {
+          "src": "/logo192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.ailehekimligi.kura",
+      "id": "com.ailehekimligi.kura"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+ailehekimligi",
+      "url": "/?url=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "/open",
+      "accept": {
+        "application/pdf": [".pdf"]
+      },
+      "icons": [
+        {
+          "src": "/logo192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
 }
