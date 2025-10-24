@@ -7,7 +7,7 @@ const Kura = require('../models/Kura');
 // Kullanıcı profili
 router.get('/profile', authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId)
+    const user = await User.findById(req.user.id)
       .select('-password');
 
     if (!user) {
@@ -29,7 +29,7 @@ router.put('/profile', authMiddleware, async (req, res) => {
       sicil_no, unvan, mezun_universite, uyum_egitimi_sertifika
     } = req.body;
 
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.id);
 
     if (!user) {
       return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
@@ -61,7 +61,7 @@ router.put('/profile', authMiddleware, async (req, res) => {
 // Kullanıcının tercihleri
 router.get('/tercihler', authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.id);
 
     if (!user) {
       return res.status(404).json({ error: 'Kullanıcı bulunamadı' });

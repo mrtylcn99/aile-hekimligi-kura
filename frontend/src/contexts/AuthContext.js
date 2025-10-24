@@ -34,7 +34,11 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
     } catch (error) {
       console.error('Error loading user:', error);
-      logout();
+      // Only logout if it's an authentication error
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        logout();
+      }
+      // For other errors (like network issues), keep the user logged in
     } finally {
       setLoading(false);
     }
