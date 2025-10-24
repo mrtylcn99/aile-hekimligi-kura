@@ -146,18 +146,14 @@ const LoginMobile = () => {
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            <motion.div
-              className="logo-icon"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            >
+            <div className="logo-icon">
               <svg viewBox="0 0 100 100" fill="none">
                 <circle cx="50" cy="50" r="45" stroke="white" strokeWidth="2" opacity="0.3"/>
                 <path d="M50 20 L65 40 L60 70 L50 65 L40 70 L35 40 Z" fill="white" opacity="0.9"/>
                 <circle cx="50" cy="45" r="15" fill="#ff6b35"/>
                 <text x="50" y="52" textAnchor="middle" fill="white" fontSize="20" fontWeight="bold">AH</text>
               </svg>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
 
@@ -206,16 +202,12 @@ const LoginMobile = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.7 }}
           >
-            <motion.div
-              className="input-icon"
-              animate={focusedField === 'tc' ? { rotate: 360 } : {}}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="input-icon">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" strokeWidth="2"/>
                 <path d="M20 21C20 16.5817 16.4183 13 12 13C7.58172 13 4 16.5817 4 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
               </svg>
-            </motion.div>
+            </div>
             <input
               type="text"
               placeholder="TC Kimlik No"
@@ -249,17 +241,13 @@ const LoginMobile = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            <motion.div
-              className="input-icon"
-              animate={focusedField === 'password' ? { rotate: 360 } : {}}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="input-icon">
               <svg viewBox="0 0 24 24" fill="none">
                 <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="2"/>
                 <path d="M12 11V7C12 5.89543 11.1046 5 10 5C8.89543 5 8 5.89543 8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 <path d="M16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
               </svg>
-            </motion.div>
+            </div>
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Şifre"

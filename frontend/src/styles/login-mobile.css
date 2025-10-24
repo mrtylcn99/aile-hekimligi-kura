@@ -185,6 +185,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  min-height: 56px;
 }
 
 .form-group.focused {
@@ -200,6 +201,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  width: 50px;
+  height: 100%;
 }
 
 .input-icon svg {
@@ -262,23 +266,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5px;
+  padding: 10px 5px;
+  min-height: 40px;
 }
 
 .remember-me {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: #666;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
+  padding: 8px 0;
 }
 
 .remember-me input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
-  accent-color: white;
+  accent-color: #ff6b35;
+  border-radius: 4px;
+  border: 2px solid #ff6b35;
 }
 
 .forgot-link {
