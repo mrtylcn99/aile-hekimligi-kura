@@ -2,10 +2,10 @@
   "short_name": "AH Kura",
   "name": "T.C. Aile Hekimliği Kura Sistemi",
   "description": "Türkiye Cumhuriyeti Sağlık Bakanlığı Aile Hekimliği Kura Başvuru ve Takip Sistemi",
-  "id": "/?standalone=true",
-  "start_url": "/?standalone=true",
-  "display": "fullscreen",
-  "display_override": ["fullscreen"],
+  "id": "/?source=homescreen",
+  "start_url": "/?source=homescreen",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "theme_color": "#ff6b35",
   "background_color": "#ff6b35",
   "orientation": "portrait",
@@ -97,6 +97,9 @@
     }
   ],
   "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "related_applications": [
     {
       "platform": "play",

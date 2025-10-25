@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
+import { initStandaloneMode } from '../utils/standalone';
 import '../styles/login-mobile.css';
 
 const LoginMobile = () => {
@@ -22,6 +23,9 @@ const LoginMobile = () => {
   }, [user, navigate]);
 
   useEffect(() => {
+    // Initialize standalone mode detection
+    const browserInfo = initStandaloneMode();
+
     // Generate floating particles
     const newParticles = [];
     for (let i = 0; i < 30; i++) {
@@ -34,6 +38,16 @@ const LoginMobile = () => {
       });
     }
     setParticles(newParticles);
+
+    // Show install prompt if not in standalone mode
+    if (!browserInfo.isStandalone) {
+      setTimeout(() => {
+        toast.info('Daha iyi deneyim için uygulamayı ana ekranınıza ekleyin!', {
+          duration: 5000,
+          position: 'top-center'
+        });
+      }, 2000);
+    }
   }, []);
 
   const handleSubmit = async (e) => {

@@ -102,6 +102,18 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
+/* Browser mode adjustments */
+.browser-mode .mobile-login-content {
+  margin-top: 60px;
+  max-height: calc(100vh - 80px);
+}
+
+/* Standalone mode optimizations */
+.standalone-mode .mobile-login-content {
+  margin-top: 0;
+  max-height: calc(100vh - 20px);
+}
+
 /* Logo Section */
 .logo-section {
   margin-bottom: 12px;
