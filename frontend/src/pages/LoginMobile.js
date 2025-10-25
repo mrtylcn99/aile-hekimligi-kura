@@ -340,39 +340,37 @@ const LoginMobile = () => {
             </AnimatePresence>
           </motion.button>
 
-          {/* Test Credentials */}
+          {/* Security Features */}
           <motion.div
-            className="test-credentials"
+            className="security-features"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
           >
-            <p>Test Kullanıcıları:</p>
-            <div className="credential-list">
-              <motion.button
-                type="button"
-                className="credential-item"
-                onClick={() => {
-                  setTcKimlik('12345678901');
-                  setPassword('123456');
-                  toast.success('Normal kullanıcı bilgileri dolduruldu');
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>Normal:</span> 12345678901
-              </motion.button>
-              <motion.button
-                type="button"
-                className="credential-item"
-                onClick={() => {
-                  setTcKimlik('98765432109');
-                  setPassword('admin123');
-                  toast.success('Admin bilgileri dolduruldu');
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>Admin:</span> 98765432109
-              </motion.button>
+            <div className="security-grid">
+              <div className="security-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" stroke="#ff6b35" strokeWidth="2" fill="rgba(255, 107, 53, 0.1)"/>
+                  <path d="M9 12L11 14L15 10" stroke="#ff6b35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span>SSL Güvenlik</span>
+              </div>
+              <div className="security-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="11" width="18" height="10" rx="2" stroke="#ff6b35" strokeWidth="2" fill="rgba(255, 107, 53, 0.1)"/>
+                  <circle cx="12" cy="16" r="1" fill="#ff6b35"/>
+                  <path d="M7 11V7C7 4.79086 9.23858 3 12 3C14.7614 3 17 4.79086 17 7V11" stroke="#ff6b35" strokeWidth="2"/>
+                </svg>
+                <span>KVKK Uyumlu</span>
+              </div>
+              <div className="security-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 3H21V9" stroke="#ff6b35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 14L21 3" stroke="#ff6b35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M18 13V19C18 20.1046 17.1046 21 16 21H5C3.89543 21 3 20.1046 3 19V8C3 6.89543 3.89543 6 5 6H11" stroke="#ff6b35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="rgba(255, 107, 53, 0.1)"/>
+                </svg>
+                <span>Güvenli İşlem</span>
+              </div>
             </div>
           </motion.div>
         </motion.form>
