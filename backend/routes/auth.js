@@ -5,6 +5,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { validateRegister, validateLogin } = require('../middleware/validation');
 const authMiddleware = require('../middleware/auth');
+const { validateTCKimlik, validatePhone, validatePassword } = require('../utils/tcValidation');
+
+// Login attempt tracking (in-memory for now)
+const loginAttempts = new Map();
 
 // Generate tokens
 const generateAccessToken = (user) => {
@@ -15,10 +19,28 @@ const generateAccessToken = (user) => {
   );
 };
 
-// Register
+// Register with enhanced validation
 router.post('/register', validateRegister, async (req, res) => {
   try {
     const { tcKimlik, telefon, email, sifre, ad, soyad } = req.body;
+
+    // TC Kimlik validation
+    const tcValidation = validateTCKimlik(tcKimlik);
+    if (!tcValidation.valid) {
+      return res.status(400).json({ error: tcValidation.message });
+    }
+
+    // Phone validation
+    const phoneValidation = validatePhone(telefon);
+    if (!phoneValidation.valid) {
+      return res.status(400).json({ error: phoneValidation.message });
+    }
+
+    // Password strength validation
+    const passwordValidation = validatePassword(sifre);
+    if (!passwordValidation.valid) {
+      return res.status(400).json({ error: passwordValidation.message });
+    }
 
     // Check if user exists
     const existingUser = await User.findOne({
@@ -31,8 +53,8 @@ router.post('/register', validateRegister, async (req, res) => {
       });
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(sifre, 10);
+    // Hash password with stronger salt
+    const hashedPassword = await bcrypt.hash(sifre, 12);
 
     // Create new user
     const newUser = new User({
@@ -62,10 +84,28 @@ router.post('/register', validateRegister, async (req, res) => {
   }
 });
 
-// Login
+// Login with brute force protection
 router.post('/login', validateLogin, async (req, res) => {
   try {
     const { username, password } = req.body;
+    const clientIP = req.ip;
+
+    // Check login attempts
+    const attempts = loginAttempts.get(clientIP) || { count: 0, lastAttempt: Date.now() };
+    const timeSinceLastAttempt = Date.now() - attempts.lastAttempt;
+
+    // Reset attempts after 30 minutes
+    if (timeSinceLastAttempt > 30 * 60 * 1000) {
+      attempts.count = 0;
+    }
+
+    // Block after 5 failed attempts
+    if (attempts.count >= 5) {
+      const timeRemaining = Math.ceil((30 * 60 * 1000 - timeSinceLastAttempt) / 60000);
+      return res.status(429).json({
+        error: `Çok fazla başarısız giriş denemesi. ${timeRemaining} dakika sonra tekrar deneyin.`
+      });
+    }
 
     // Find user by TC, email, or phone
     let user;
@@ -84,8 +124,19 @@ router.post('/login', validateLogin, async (req, res) => {
     // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Şifre hatalı' });
+      // Increment failed attempts
+      attempts.count++;
+      attempts.lastAttempt = Date.now();
+      loginAttempts.set(clientIP, attempts);
+
+      return res.status(401).json({
+        error: 'Şifre hatalı',
+        attemptsRemaining: 5 - attempts.count
+      });
     }
+
+    // Reset attempts on successful login
+    loginAttempts.delete(clientIP);
 
     // Check if account is active
     if (!user.aktif) {

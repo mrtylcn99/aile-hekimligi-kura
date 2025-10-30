@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- White background for logo -->
+    <solid android:color="@color/background_color" />
+
+    <!-- Shadow effect -->
+    <stroke
+        android:width="2dp"
+        android:color="#20000000" />
+
+    <!-- Optional gradient overlay -->
+    <gradient
+        android:angle="135"
+        android:startColor="#FFFFFF"
+        android:endColor="#F8F9FA"
+        android:type="linear" />
+
+</shape>

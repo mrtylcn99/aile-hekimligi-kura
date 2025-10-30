@@ -54,3 +54,33 @@ coverage/
 
 # OS files
 Thumbs.db
+
+# React Native / Android
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/local.properties
+mobile/android/*.keystore
+mobile/android/**/*.keystore
+*.apk
+*.aab
+*.aar
+*.ap_
+*.dex
+
+# iOS
+mobile/ios/Pods/
+mobile/ios/build/
+*.ipa
+*.xcuserstate
+
+# APK outputs (keep version control)
+apps/*/*.apk
+!apps/.gitkeep
+
+# Sensitive data
+backend/.env.production
+backend/.env.local
+*.key
+*.pem
+*.p12

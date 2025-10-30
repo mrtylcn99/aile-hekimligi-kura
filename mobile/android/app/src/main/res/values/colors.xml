@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Orange Healthcare Theme Colors -->
+    <color name="primary_color">#FF6B35</color>
+    <color name="primary_dark">#CC5528</color>
+    <color name="primary_light">#FF8C42</color>
+    <color name="accent_color">#FFA560</color>
+
+    <!-- Background Colors -->
+    <color name="background_color">#FFFFFF</color>
+    <color name="surface_color">#F8F9FA</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#2D2D2D</color>
+    <color name="text_secondary">#666666</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- System Colors -->
+    <color name="success_color">#22C55E</color>
+    <color name="error_color">#EF4444</color>
+    <color name="warning_color">#F59E0B</color>
+    <color name="info_color">#3B82F6</color>
+
+    <!-- Status Bar and Navigation -->
+    <color name="status_bar_color">@color/primary_color</color>
+    <color name="navigation_bar_color">@color/background_color</color>
+
+    <!-- Splash Screen -->
+    <color name="splash_background">@color/primary_color</color>
+    <color name="splash_text">@color/text_on_primary</color>
+
+    <!-- Common Android Colors -->
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent">#80000000</color>
+</resources>

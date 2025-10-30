@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">T.C. Aile Hekimliği Kura</string>
+    <string name="splash_title">Aile Hekimliği</string>
+    <string name="splash_subtitle">Türkiye Kura Sistemi</string>
+    <string name="loading_text">Yükleniyor...</string>
+
+    <!-- Government Official Texts -->
+    <string name="official_ministry">T.C. Sağlık Bakanlığı</string>
+    <string name="system_name">Aile Hekimliği Kura Başvuru ve Takip Sistemi</string>
+
+    <!-- Common Actions -->
+    <string name="login">Giriş Yap</string>
+    <string name="register">Kayıt Ol</string>
+    <string name="logout">Çıkış Yap</string>
+    <string name="cancel">İptal</string>
+    <string name="ok">Tamam</string>
+    <string name="retry">Tekrar Dene</string>
+
+    <!-- Navigation -->
+    <string name="home">Ana Sayfa</string>
+    <string name="applications">Başvurularım</string>
+    <string name="kura_list">Kura Listesi</string>
+    <string name="profile">Profil</string>
+
+    <!-- Error Messages -->
+    <string name="network_error">İnternet bağlantısı yok</string>
+    <string name="server_error">Sunucu hatası</string>
+    <string name="unknown_error">Bilinmeyen hata</string>
+</resources>
