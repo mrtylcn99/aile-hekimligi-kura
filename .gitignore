@@ -78,12 +78,9 @@ mobile/android/**/*.keystore
 **/build/generated/
 **/dependencies-accessors/
 
-# Eclipse/IDE generated files
+# Eclipse/IDE generated files (only ignore metadata, keep project files)
 .metadata/
-.classpath
-.project
-.settings/
-*.prefs
+# Note: .classpath, .project, .settings/ are needed for Java projects
 
 # iOS
 mobile/ios/Pods/
