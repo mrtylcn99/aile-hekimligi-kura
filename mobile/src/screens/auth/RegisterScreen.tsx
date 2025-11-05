@@ -19,6 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useAuth} from '../../contexts/AuthContext';
 import {Colors} from '../../styles/Colors';
+import SMSVerification from '../../components/SMSVerification';
 
 const {width, height} = Dimensions.get('window');
 
@@ -28,6 +29,7 @@ const RegisterScreen: React.FC = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: '',
   });
@@ -35,6 +37,7 @@ const RegisterScreen: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [showSMSVerification, setShowSMSVerification] = useState(false);
 
   const navigation = useNavigation();
   const {register} = useAuth();
@@ -76,6 +79,11 @@ const RegisterScreen: React.FC = () => {
       return;
     }
 
+    if (formData.phone.length < 10) {
+      Alert.alert('Hata', 'Geçerli bir telefon numarası giriniz.');
+      return;
+    }
+
     if (formData.password.length < 6) {
       Alert.alert('Hata', 'Şifre en az 6 karakter olmalıdır.');
       return;
@@ -87,7 +95,25 @@ const RegisterScreen: React.FC = () => {
     }
 
     setIsLoading(true);
+    // Show SMS verification modal instead of direct registration
+    setShowSMSVerification(true);
+    setIsLoading(false);
+  };
+
+  const updateFormData = (field: string, value: string) => {
+    if (field === 'tcKimlik') {
+      value = value.replace(/\\D/g, '').slice(0, 11);
+    }
+    if (field === 'phone') {
+      value = value.replace(/\\D/g, '').slice(0, 11);
+    }
+    setFormData(prev => ({...prev, [field]: value}));
+  };
+
+  const handleSMSVerify = async (code: string) => {
+    setIsLoading(true);
     try {
+      // Do the actual registration after SMS verification
       await register({
         tcKimlik: formData.tcKimlik,
         firstName: formData.firstName,
@@ -95,21 +121,13 @@ const RegisterScreen: React.FC = () => {
         email: formData.email,
         password: formData.password,
       });
-
-      // Başarılı kayıt sonrası giriş sayfasına dön
+      setShowSMSVerification(false);
       navigation.goBack();
     } catch (error) {
-      // Hata AuthContext'te handle edildi
+      Alert.alert('Hata', 'Kayıt işlemi başarısız oldu.');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const updateFormData = (field: string, value: string) => {
-    if (field === 'tcKimlik') {
-      value = value.replace(/\\D/g, '').slice(0, 11);
-    }
-    setFormData(prev => ({...prev, [field]: value}));
   };
 
   const renderInputField = (
@@ -217,6 +235,7 @@ const RegisterScreen: React.FC = () => {
                 {renderInputField('firstName', 'Ad', 'person-outline')}
                 {renderInputField('lastName', 'Soyad', 'person')}
                 {renderInputField('email', 'E-posta', 'email', false, 'email-address')}
+                {renderInputField('phone', 'Telefon (5XX XXX XX XX)', 'phone', false, 'phone-pad', 11)}
                 {renderInputField('password', 'Şifre', 'lock', !showPassword)}
                 {renderInputField('confirmPassword', 'Şifre Tekrar', 'lock-outline', !showConfirmPassword)}
 
@@ -266,6 +285,14 @@ const RegisterScreen: React.FC = () => {
           </ScrollView>
         </KeyboardAvoidingView>
       </LinearGradient>
+
+      {/* SMS Verification Modal */}
+      <SMSVerification
+        visible={showSMSVerification}
+        onClose={() => setShowSMSVerification(false)}
+        phoneNumber={formData.phone || '05551234567'}
+        onVerify={handleSMSVerify}
+      />
     </SafeAreaView>
   );
 };

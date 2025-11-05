@@ -13,6 +13,14 @@ android {
 
     namespace "com.afikura"
 
+    sourceSets {
+        main {
+            java {
+                srcDirs += 'build/generated/rncli/src/main/java'
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "com.afikura"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -25,6 +33,14 @@ android {
 
         // Vector drawable support
         vectorDrawables.useSupportLibrary = true
+
+        // Multi-dex support for methods count
+        multiDexEnabled true
+
+        // Build optimization
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
     }
 
     signingConfigs {
@@ -51,13 +67,19 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug // Use debug for now, change to release for production
             minifyEnabled true
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
 
             // APK optimizasyonu
             shrinkResources true
             zipAlignEnabled true
+
+            // Performance optimizations
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
         }
     }
 
@@ -66,17 +88,24 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     packagingOptions {
         pickFirst '**/libc++_shared.so'
         pickFirst '**/libjsc.so'
+        pickFirst '**/arm64-v8a/libc++_shared.so'
+        pickFirst '**/x86_64/libc++_shared.so'
+        excludes += ['META-INF/DEPENDENCIES']
+        excludes += ['META-INF/LICENSE']
+        excludes += ['META-INF/LICENSE.txt']
+        excludes += ['META-INF/NOTICE']
+        excludes += ['META-INF/NOTICE.txt']
     }
 }
 
@@ -88,23 +117,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.core:core-ktx:1.9.0")
 
-    // Vector Icons
-    implementation project(':react-native-vector-icons')
-
-    // AsyncStorage
-    implementation project(':react-native-async-storage')
-
-    // LinearGradient
-    implementation project(':react-native-linear-gradient')
-
-    // SafeArea
-    implementation project(':react-native-safe-area-context')
-
-    // Gesture Handler
-    implementation project(':react-native-gesture-handler')
-
-    // Toast Message
-    implementation project(':react-native-toast-message')
+    // React Native modules are auto-linked via native_modules.gradle
 
     debugImplementation("com.facebook.flipper:flipper:0.182.0")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:0.182.0") {
@@ -115,6 +128,9 @@ dependencies {
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
-        implementation jscFlavor
+        implementation("org.webkit:android-jsc:+")
     }
 }
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+applyNativeModulesAppBuildGradle(project)

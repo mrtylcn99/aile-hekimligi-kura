@@ -1,4 +1,4 @@
-package com.ailehekimligikura;
+package com.afikura;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

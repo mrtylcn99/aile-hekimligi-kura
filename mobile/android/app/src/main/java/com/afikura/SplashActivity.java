@@ -1,4 +1,4 @@
-package com.ailehekimligikura;
+package com.afikura;
 
 import android.content.Intent;
 import android.os.Bundle;

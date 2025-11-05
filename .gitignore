@@ -59,6 +59,11 @@ Thumbs.db
 mobile/android/.gradle/
 mobile/android/build/
 mobile/android/app/build/
+mobile/android/bin/
+mobile/android/*/bin/
+mobile/android/**/.gradle/
+mobile/android/**/build/
+mobile/android/**/bin/
 mobile/android/local.properties
 mobile/android/*.keystore
 mobile/android/**/*.keystore
@@ -67,6 +72,18 @@ mobile/android/**/*.keystore
 *.aar
 *.ap_
 *.dex
+*.class
+**/.gradle/
+**/bin/
+**/build/generated/
+**/dependencies-accessors/
+
+# Eclipse/IDE generated files
+.metadata/
+.classpath
+.project
+.settings/
+*.prefs
 
 # iOS
 mobile/ios/Pods/

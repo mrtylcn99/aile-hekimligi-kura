@@ -5,9 +5,13 @@ import Toast from 'react-native-toast-message';
 // API URL - Production Render.com backend
 const API_BASE_URL = 'https://aile-hekimligi-backend.onrender.com'; // Render.com Production URL
 
+// Mock mode for offline testing
+const USE_MOCK_DATA = false; // Backend is now available on Render.com
+
 class ApiServiceClass {
   private api: AxiosInstance;
   private token: string | null = null;
+  private mockMode: boolean = USE_MOCK_DATA;
 
   constructor() {
     this.api = axios.create({
@@ -141,16 +145,75 @@ class ApiServiceClass {
     }
   }
 
+  // Mock data helpers
+  private async mockResponse(data: any, delay: number = 500): Promise<AxiosResponse> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          data: data,
+          status: 200,
+          statusText: 'OK',
+          headers: {},
+          config: {} as any,
+        });
+      }, delay);
+    });
+  }
+
   // Auth endpoints
   async login(tcKimlik: string, password: string) {
+    if (this.mockMode) {
+      // Mock successful login
+      if (tcKimlik === '12345678901' && password === '123456') {
+        return this.mockResponse({
+          success: true,
+          token: 'mock-jwt-token-' + Date.now(),
+          user: {
+            id: '1',
+            tcKimlik: '12345678901',
+            firstName: 'Test',
+            lastName: 'Kullanıcı',
+            email: 'test@example.com',
+            phone: '5551234567',
+          }
+        });
+      } else {
+        throw new Error('TC Kimlik veya şifre hatalı');
+      }
+    }
     return this.post('/api/auth/login', {tcKimlik, password});
   }
 
   async register(userData: any) {
+    if (this.mockMode) {
+      // Mock successful registration
+      return this.mockResponse({
+        success: true,
+        message: 'Kayıt başarılı',
+        token: 'mock-jwt-token-' + Date.now(),
+        user: {
+          id: '1',
+          ...userData,
+        }
+      });
+    }
     return this.post('/api/auth/register', userData);
   }
 
   async verifyToken() {
+    if (this.mockMode) {
+      // Mock token verification
+      return this.mockResponse({
+        valid: true,
+        user: {
+          id: '1',
+          tcKimlik: '12345678901',
+          firstName: 'Test',
+          lastName: 'Kullanıcı',
+          email: 'test@example.com',
+        }
+      });
+    }
     return this.get('/api/auth/verify');
   }
 
