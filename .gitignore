@@ -67,6 +67,8 @@ mobile/android/**/bin/
 mobile/android/local.properties
 mobile/android/*.keystore
 mobile/android/**/*.keystore
+mobile/android/gradle/wrapper/gradle-*.zip
+mobile/android/gradle/wrapper/gradle-*-bin.zip
 *.apk
 *.aab
 *.aar
