@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -8,16 +8,16 @@ import {
   Animated,
   Dimensions,
   RefreshControl,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import LinearGradient from "react-native-linear-gradient";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-import {useAuth} from '../../contexts/AuthContext';
-import {Colors} from '../../styles/Colors';
-import {GlobalStyles} from '../../styles/GlobalStyles';
+import { useAuth } from "../../contexts/AuthContext";
+import { Colors } from "../../styles/Colors";
+import { GlobalStyles } from "../../styles/GlobalStyles";
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 interface StatCardData {
   title: string;
@@ -34,7 +34,7 @@ interface QuickActionData {
 }
 
 const DashboardScreen: React.FC = () => {
-  const {user, logout} = useAuth();
+  const { user, logout } = useAuth();
   const [refreshing, setRefreshing] = useState(false);
   const [stats, setStats] = useState<StatCardData[]>([]);
 
@@ -67,36 +67,36 @@ const DashboardScreen: React.FC = () => {
       // Şimdilik mock data
       setStats([
         {
-          title: 'Toplam Başvuru',
-          value: '3',
-          icon: 'assignment',
+          title: "Toplam Başvuru",
+          value: "3",
+          icon: "assignment",
           color: Colors.primary,
-          change: '+2 bu ay',
+          change: "+2 bu ay",
         },
         {
-          title: 'Onaylanan',
-          value: '1',
-          icon: 'check-circle',
+          title: "Onaylanan",
+          value: "1",
+          icon: "check-circle",
           color: Colors.success,
-          change: 'Geçen ay',
+          change: "Geçen ay",
         },
         {
-          title: 'Bekleyen',
-          value: '2',
-          icon: 'schedule',
+          title: "Bekleyen",
+          value: "2",
+          icon: "schedule",
           color: Colors.warning,
-          change: 'İnceleme',
+          change: "İnceleme",
         },
         {
-          title: 'Aktif Kuralar',
-          value: '47',
-          icon: 'list-alt',
+          title: "Aktif Kuralar",
+          value: "47",
+          icon: "list-alt",
           color: Colors.info,
-          change: 'Bu dönem',
+          change: "Bu dönem",
         },
       ]);
     } catch (error) {
-      console.error('Dashboard data loading error:', error);
+      console.error("Dashboard data loading error:", error);
     }
   };
 
@@ -108,29 +108,29 @@ const DashboardScreen: React.FC = () => {
 
   const quickActions: QuickActionData[] = [
     {
-      title: 'Yeni Başvuru',
-      icon: 'add-circle',
+      title: "Yeni Başvuru",
+      icon: "add-circle",
       onPress: () => {
         // Navigate to application form
       },
     },
     {
-      title: 'Kura Listesi',
-      icon: 'list',
+      title: "Kura Listesi",
+      icon: "list",
       onPress: () => {
         // Navigate to kura list
       },
     },
     {
-      title: 'Başvurularım',
-      icon: 'folder',
+      title: "Başvurularım",
+      icon: "folder",
       onPress: () => {
         // Navigate to applications
       },
     },
     {
-      title: 'Profilim',
-      icon: 'person',
+      title: "Profilim",
+      icon: "person",
       onPress: () => {
         // Navigate to profile
       },
@@ -158,14 +158,12 @@ const DashboardScreen: React.FC = () => {
       <LinearGradient
         colors={[stat.color, `${stat.color}DD`]}
         style={styles.statCardGradient}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 1}}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
       >
         <View style={styles.statCardHeader}>
           <Icon name={stat.icon} size={24} color={Colors.textOnPrimary} />
-          {stat.change && (
-            <Text style={styles.statChange}>{stat.change}</Text>
-          )}
+          {stat.change && <Text style={styles.statChange}>{stat.change}</Text>}
         </View>
         <Text style={styles.statValue}>{stat.value}</Text>
         <Text style={styles.statTitle}>{stat.title}</Text>
@@ -254,7 +252,9 @@ const DashboardScreen: React.FC = () => {
             <View style={styles.userInfo}>
               <Text style={styles.greeting}>Merhaba,</Text>
               <Text style={styles.userName}>
-                {user?.firstName ? `${user.firstName} ${user.lastName}` : 'Kullanıcı'}
+                {user?.firstName
+                  ? `${user.firstName} ${user.lastName}`
+                  : "Kullanıcı"}
               </Text>
             </View>
             <TouchableOpacity
@@ -279,7 +279,9 @@ const DashboardScreen: React.FC = () => {
         <View style={styles.quickActionsContainer}>
           <Text style={styles.sectionTitle}>Hızlı İşlemler</Text>
           <View style={styles.quickActionsGrid}>
-            {quickActions.map((action, index) => renderQuickAction(action, index))}
+            {quickActions.map((action, index) =>
+              renderQuickAction(action, index)
+            )}
           </View>
         </View>
 
@@ -296,8 +298,8 @@ const DashboardScreen: React.FC = () => {
             <View style={styles.noticeContent}>
               <Text style={styles.noticeTitle}>Önemli Duyuru</Text>
               <Text style={styles.noticeText}>
-                Yeni kura dönemi başvuruları 1 Ocak 2024 tarihinde sona erecektir.
-                Lütfen başvurularınızı zamanında tamamlayınız.
+                Yeni kura dönemi başvuruları 1 Ocak 2024 tarihinde sona
+                erecektir. Lütfen başvurularınızı zamanında tamamlayınız.
               </Text>
             </View>
           </LinearGradient>
@@ -326,9 +328,9 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
   },
   headerContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   userInfo: {
     flex: 1,
@@ -340,7 +342,7 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
   },
   logoutButton: {
@@ -348,7 +350,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
     marginBottom: 16,
     paddingHorizontal: 20,
@@ -357,8 +359,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   statsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     paddingHorizontal: 10,
   },
   statCard: {
@@ -366,7 +368,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 16,
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: "hidden",
     ...GlobalStyles.shadow,
   },
   statCardGradient: {
@@ -374,9 +376,9 @@ const styles = StyleSheet.create({
     minHeight: 120,
   },
   statCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   statChange: {
@@ -386,7 +388,7 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.textOnPrimary,
     marginBottom: 8,
   },
@@ -399,8 +401,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   quickActionsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     paddingHorizontal: 10,
   },
   quickActionButton: {
@@ -408,7 +410,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     borderRadius: 16,
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
     marginHorizontal: 10,
     marginBottom: 16,
     ...GlobalStyles.shadow,
@@ -418,15 +420,15 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     backgroundColor: Colors.primaryTransparent,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 12,
   },
   quickActionText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text,
-    textAlign: 'center',
+    textAlign: "center",
   },
   recentActivitiesContainer: {
     marginTop: 20,
@@ -435,7 +437,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   activityItem: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: Colors.card,
     borderRadius: 12,
     padding: 16,
@@ -447,8 +449,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: Colors.primaryTransparent,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 16,
   },
   activityContent: {
@@ -456,7 +458,7 @@ const styles = StyleSheet.create({
   },
   activityTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text,
     marginBottom: 4,
   },
@@ -473,13 +475,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginHorizontal: 20,
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: "hidden",
     ...GlobalStyles.shadow,
   },
   noticeGradient: {
     padding: 20,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   noticeContent: {
     flex: 1,
@@ -487,7 +489,7 @@ const styles = StyleSheet.create({
   },
   noticeTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.primary,
     marginBottom: 8,
   },

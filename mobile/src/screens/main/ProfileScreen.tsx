@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,14 +8,14 @@ import {
   ScrollView,
   Alert,
   Linking,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import LinearGradient from "react-native-linear-gradient";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-import {useAuth} from '../../contexts/AuthContext';
-import {Colors} from '../../styles/Colors';
-import {GlobalStyles} from '../../styles/GlobalStyles';
+import { useAuth } from "../../contexts/AuthContext";
+import { Colors } from "../../styles/Colors";
+import { GlobalStyles } from "../../styles/GlobalStyles";
 
 interface MenuItemData {
   title: string;
@@ -26,12 +26,12 @@ interface MenuItemData {
 }
 
 const ProfileScreen: React.FC = () => {
-  const {user, logout} = useAuth();
+  const { user, logout } = useAuth();
   const [userStats, setUserStats] = useState({
     totalApplications: 3,
     approvedApplications: 1,
     pendingApplications: 2,
-    accountAge: '2 ay',
+    accountAge: "2 ay",
   });
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -54,13 +54,13 @@ const ProfileScreen: React.FC = () => {
 
   const handleLogout = () => {
     Alert.alert(
-      'Çıkış Yap',
-      'Hesabınızdan çıkış yapmak istediğinizden emin misiniz?',
+      "Çıkış Yap",
+      "Hesabınızdan çıkış yapmak istediğinizden emin misiniz?",
       [
-        {text: 'İptal', style: 'cancel'},
+        { text: "İptal", style: "cancel" },
         {
-          text: 'Çıkış Yap',
-          style: 'destructive',
+          text: "Çıkış Yap",
+          style: "destructive",
           onPress: logout,
         },
       ]
@@ -69,29 +69,29 @@ const ProfileScreen: React.FC = () => {
 
   const profileMenuItems: MenuItemData[] = [
     {
-      title: 'Kişisel Bilgilerim',
-      icon: 'person',
+      title: "Kişisel Bilgilerim",
+      icon: "person",
       onPress: () => {
         // Navigate to personal info
       },
     },
     {
-      title: 'Bildirim Ayarları',
-      icon: 'notifications',
+      title: "Bildirim Ayarları",
+      icon: "notifications",
       onPress: () => {
         // Navigate to notification settings
       },
     },
     {
-      title: 'Güvenlik',
-      icon: 'security',
+      title: "Güvenlik",
+      icon: "security",
       onPress: () => {
         // Navigate to security settings
       },
     },
     {
-      title: 'Uygulama Ayarları',
-      icon: 'settings',
+      title: "Uygulama Ayarları",
+      icon: "settings",
       onPress: () => {
         // Navigate to app settings
       },
@@ -100,29 +100,29 @@ const ProfileScreen: React.FC = () => {
 
   const supportMenuItems: MenuItemData[] = [
     {
-      title: 'Yardım ve Destek',
-      icon: 'help',
+      title: "Yardım ve Destek",
+      icon: "help",
       onPress: () => {
         // Navigate to help
       },
     },
     {
-      title: 'İletişim',
-      icon: 'contact-support',
+      title: "İletişim",
+      icon: "contact-support",
       onPress: () => {
-        Linking.openURL('tel:444-1234');
+        Linking.openURL("tel:444-1234");
       },
     },
     {
-      title: 'Geri Bildirim',
-      icon: 'feedback',
+      title: "Geri Bildirim",
+      icon: "feedback",
       onPress: () => {
         // Navigate to feedback
       },
     },
     {
-      title: 'Hakkında',
-      icon: 'info',
+      title: "Hakkında",
+      icon: "info",
       onPress: () => {
         // Navigate to about
       },
@@ -131,8 +131,8 @@ const ProfileScreen: React.FC = () => {
 
   const dangerMenuItems: MenuItemData[] = [
     {
-      title: 'Çıkış Yap',
-      icon: 'logout',
+      title: "Çıkış Yap",
+      icon: "logout",
       onPress: handleLogout,
       color: Colors.error,
       showArrow: false,
@@ -163,14 +163,21 @@ const ProfileScreen: React.FC = () => {
         activeOpacity={0.7}
       >
         <View style={styles.menuItemLeft}>
-          <View style={[styles.menuItemIcon, item.color && {backgroundColor: `${item.color}20`}]}>
+          <View
+            style={[
+              styles.menuItemIcon,
+              item.color && { backgroundColor: `${item.color}20` },
+            ]}
+          >
             <Icon
               name={item.icon}
               size={24}
               color={item.color || Colors.primary}
             />
           </View>
-          <Text style={[styles.menuItemText, item.color && {color: item.color}]}>
+          <Text
+            style={[styles.menuItemText, item.color && { color: item.color }]}
+          >
             {item.title}
           </Text>
         </View>
@@ -187,15 +194,15 @@ const ProfileScreen: React.FC = () => {
         styles.statsCard,
         {
           opacity: fadeAnim,
-          transform: [{translateY: slideAnim}],
+          transform: [{ translateY: slideAnim }],
         },
       ]}
     >
       <LinearGradient
         colors={[Colors.gradientStart, Colors.gradientMid]}
         style={styles.statsGradient}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 1}}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
       >
         <Text style={styles.statsTitle}>Hesap İstatistikleri</Text>
         <View style={styles.statsGrid}>
@@ -204,11 +211,15 @@ const ProfileScreen: React.FC = () => {
             <Text style={styles.statLabel}>Toplam Başvuru</Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{userStats.approvedApplications}</Text>
+            <Text style={styles.statValue}>
+              {userStats.approvedApplications}
+            </Text>
             <Text style={styles.statLabel}>Onaylanan</Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{userStats.pendingApplications}</Text>
+            <Text style={styles.statValue}>
+              {userStats.pendingApplications}
+            </Text>
             <Text style={styles.statLabel}>Bekleyen</Text>
           </View>
           <View style={styles.statItem}>
@@ -233,34 +244,40 @@ const ProfileScreen: React.FC = () => {
             styles.profileHeader,
             {
               opacity: fadeAnim,
-              transform: [{translateY: slideAnim}],
+              transform: [{ translateY: slideAnim }],
             },
           ]}
         >
           <LinearGradient
             colors={[Colors.gradientStart, Colors.gradientEnd]}
             style={styles.profileGradient}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
           >
             <View style={styles.avatarContainer}>
               <View style={styles.avatar}>
                 <Text style={styles.avatarText}>
-                  {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'U'}
-                  {user?.lastName ? user.lastName.charAt(0).toUpperCase() : ''}
+                  {user?.firstName
+                    ? user.firstName.charAt(0).toUpperCase()
+                    : "U"}
+                  {user?.lastName ? user.lastName.charAt(0).toUpperCase() : ""}
                 </Text>
               </View>
               <TouchableOpacity style={styles.editAvatarButton}>
-                <Icon name="camera-alt" size={16} color={Colors.textOnPrimary} />
+                <Icon
+                  name="camera-alt"
+                  size={16}
+                  color={Colors.textOnPrimary}
+                />
               </TouchableOpacity>
             </View>
             <Text style={styles.userName}>
               {user?.firstName && user?.lastName
                 ? `${user.firstName} ${user.lastName}`
-                : 'Kullanıcı'}
+                : "Kullanıcı"}
             </Text>
             <Text style={styles.userEmail}>
-              {user?.email || 'email@example.com'}
+              {user?.email || "email@example.com"}
             </Text>
             <View style={styles.userBadge}>
               <Icon name="verified" size={16} color={Colors.success} />
@@ -318,10 +335,10 @@ const styles = StyleSheet.create({
   profileGradient: {
     paddingHorizontal: 20,
     paddingVertical: 30,
-    alignItems: 'center',
+    alignItems: "center",
   },
   avatarContainer: {
-    position: 'relative',
+    position: "relative",
     marginBottom: 16,
   },
   avatar: {
@@ -329,9 +346,9 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     backgroundColor: Colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -342,25 +359,25 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     fontSize: 36,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.primary,
   },
   editAvatarButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     right: 0,
     width: 32,
     height: 32,
     borderRadius: 16,
     backgroundColor: Colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 2,
     borderColor: Colors.background,
   },
   userName: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.textOnPrimary,
     marginBottom: 4,
   },
@@ -371,9 +388,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   userBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
@@ -382,13 +399,13 @@ const styles = StyleSheet.create({
   userBadgeText: {
     fontSize: 12,
     color: Colors.textOnPrimary,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   statsCard: {
     marginHorizontal: 20,
     marginBottom: 20,
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: "hidden",
     ...GlobalStyles.shadow,
   },
   statsGradient: {
@@ -396,21 +413,21 @@ const styles = StyleSheet.create({
   },
   statsTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.textOnPrimary,
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   statsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   statItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   statValue: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.textOnPrimary,
     marginBottom: 4,
   },
@@ -418,14 +435,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.textOnPrimary,
     opacity: 0.8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   menuSection: {
     marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
     marginBottom: 12,
     paddingHorizontal: 20,
@@ -435,17 +452,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   menuItemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: Colors.card,
     borderRadius: 12,
     padding: 16,
     ...GlobalStyles.shadow,
   },
   menuItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   menuItemIcon: {
@@ -453,25 +470,25 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: Colors.primaryTransparent,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 16,
   },
   menuItemText: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.text,
     flex: 1,
   },
   versionContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 20,
     marginTop: 20,
   },
   versionText: {
     fontSize: 14,
     color: Colors.textSecondary,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   versionSubtext: {
     fontSize: 12,

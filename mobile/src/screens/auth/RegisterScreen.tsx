@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,27 +11,27 @@ import {
   Platform,
   ScrollView,
   Alert,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation} from '@react-navigation/native';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import LinearGradient from "react-native-linear-gradient";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 
-import {useAuth} from '../../contexts/AuthContext';
-import {Colors} from '../../styles/Colors';
-import SMSVerification from '../../components/SMSVerification';
+import { useAuth } from "../../contexts/AuthContext";
+import { Colors } from "../../styles/Colors";
+import SMSVerification from "../../components/SMSVerification";
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const RegisterScreen: React.FC = () => {
   const [formData, setFormData] = useState({
-    tcKimlik: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
+    tcKimlik: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -40,7 +40,7 @@ const RegisterScreen: React.FC = () => {
   const [showSMSVerification, setShowSMSVerification] = useState(false);
 
   const navigation = useNavigation();
-  const {register} = useAuth();
+  const { register } = useAuth();
 
   // Animasyon referansları
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -65,32 +65,32 @@ const RegisterScreen: React.FC = () => {
   const handleRegister = async () => {
     // Validasyon kontrolleri
     if (formData.tcKimlik.length !== 11) {
-      Alert.alert('Hata', 'TC Kimlik numarası 11 haneli olmalıdır.');
+      Alert.alert("Hata", "TC Kimlik numarası 11 haneli olmalıdır.");
       return;
     }
 
     if (!formData.firstName.trim() || !formData.lastName.trim()) {
-      Alert.alert('Hata', 'Ad ve soyad alanları boş bırakılamaz.');
+      Alert.alert("Hata", "Ad ve soyad alanları boş bırakılamaz.");
       return;
     }
 
-    if (!formData.email.trim() || !formData.email.includes('@')) {
-      Alert.alert('Hata', 'Geçerli bir e-posta adresi giriniz.');
+    if (!formData.email.trim() || !formData.email.includes("@")) {
+      Alert.alert("Hata", "Geçerli bir e-posta adresi giriniz.");
       return;
     }
 
     if (formData.phone.length < 10) {
-      Alert.alert('Hata', 'Geçerli bir telefon numarası giriniz.');
+      Alert.alert("Hata", "Geçerli bir telefon numarası giriniz.");
       return;
     }
 
     if (formData.password.length < 6) {
-      Alert.alert('Hata', 'Şifre en az 6 karakter olmalıdır.');
+      Alert.alert("Hata", "Şifre en az 6 karakter olmalıdır.");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      Alert.alert('Hata', 'Şifreler eşleşmiyor.');
+      Alert.alert("Hata", "Şifreler eşleşmiyor.");
       return;
     }
 
@@ -101,13 +101,13 @@ const RegisterScreen: React.FC = () => {
   };
 
   const updateFormData = (field: string, value: string) => {
-    if (field === 'tcKimlik') {
-      value = value.replace(/\\D/g, '').slice(0, 11);
+    if (field === "tcKimlik") {
+      value = value.replace(/\\D/g, "").slice(0, 11);
     }
-    if (field === 'phone') {
-      value = value.replace(/\\D/g, '').slice(0, 11);
+    if (field === "phone") {
+      value = value.replace(/\\D/g, "").slice(0, 11);
     }
-    setFormData(prev => ({...prev, [field]: value}));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSMSVerify = async (code: string) => {
@@ -124,7 +124,7 @@ const RegisterScreen: React.FC = () => {
       setShowSMSVerification(false);
       navigation.goBack();
     } catch (error) {
-      Alert.alert('Hata', 'Kayıt işlemi başarısız oldu.');
+      Alert.alert("Hata", "Kayıt işlemi başarısız oldu.");
     } finally {
       setIsLoading(false);
     }
@@ -135,7 +135,7 @@ const RegisterScreen: React.FC = () => {
     placeholder: string,
     iconName: string,
     secureTextEntry = false,
-    keyboardType: any = 'default',
+    keyboardType: any = "default",
     maxLength?: number
   ) => (
     <View style={styles.inputContainer}>
@@ -160,28 +160,28 @@ const RegisterScreen: React.FC = () => {
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           maxLength={maxLength}
-          autoCapitalize={field === 'email' ? 'none' : 'words'}
+          autoCapitalize={field === "email" ? "none" : "words"}
           autoCorrect={false}
         />
-        {field === 'password' && (
+        {field === "password" && (
           <TouchableOpacity
             style={styles.passwordToggle}
             onPress={() => setShowPassword(!showPassword)}
           >
             <Icon
-              name={showPassword ? 'visibility' : 'visibility-off'}
+              name={showPassword ? "visibility" : "visibility-off"}
               size={20}
               color={Colors.textSecondary}
             />
           </TouchableOpacity>
         )}
-        {field === 'confirmPassword' && (
+        {field === "confirmPassword" && (
           <TouchableOpacity
             style={styles.passwordToggle}
             onPress={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             <Icon
-              name={showConfirmPassword ? 'visibility' : 'visibility-off'}
+              name={showConfirmPassword ? "visibility" : "visibility-off"}
               size={20}
               color={Colors.textSecondary}
             />
@@ -196,11 +196,11 @@ const RegisterScreen: React.FC = () => {
       <LinearGradient
         colors={[Colors.gradientStart, Colors.gradientMid, Colors.gradientEnd]}
         style={styles.gradient}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 1}}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
       >
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.keyboardView}
         >
           <ScrollView
@@ -213,7 +213,7 @@ const RegisterScreen: React.FC = () => {
                 styles.content,
                 {
                   opacity: fadeAnim,
-                  transform: [{translateY: slideAnim}],
+                  transform: [{ translateY: slideAnim }],
                 },
               ]}
             >
@@ -223,7 +223,11 @@ const RegisterScreen: React.FC = () => {
                   style={styles.backButton}
                   onPress={() => navigation.goBack()}
                 >
-                  <Icon name="arrow-back" size={24} color={Colors.textOnPrimary} />
+                  <Icon
+                    name="arrow-back"
+                    size={24}
+                    color={Colors.textOnPrimary}
+                  />
                 </TouchableOpacity>
                 <Text style={styles.title}>Kayıt Ol</Text>
                 <Text style={styles.subtitle}>Hesap Oluşturun</Text>
@@ -231,30 +235,64 @@ const RegisterScreen: React.FC = () => {
 
               {/* Form */}
               <View style={styles.formContainer}>
-                {renderInputField('tcKimlik', 'TC Kimlik No', 'badge', false, 'numeric', 11)}
-                {renderInputField('firstName', 'Ad', 'person-outline')}
-                {renderInputField('lastName', 'Soyad', 'person')}
-                {renderInputField('email', 'E-posta', 'email', false, 'email-address')}
-                {renderInputField('phone', 'Telefon (5XX XXX XX XX)', 'phone', false, 'phone-pad', 11)}
-                {renderInputField('password', 'Şifre', 'lock', !showPassword)}
-                {renderInputField('confirmPassword', 'Şifre Tekrar', 'lock-outline', !showConfirmPassword)}
+                {renderInputField(
+                  "tcKimlik",
+                  "TC Kimlik No",
+                  "badge",
+                  false,
+                  "numeric",
+                  11
+                )}
+                {renderInputField("firstName", "Ad", "person-outline")}
+                {renderInputField("lastName", "Soyad", "person")}
+                {renderInputField(
+                  "email",
+                  "E-posta",
+                  "email",
+                  false,
+                  "email-address"
+                )}
+                {renderInputField(
+                  "phone",
+                  "Telefon (5XX XXX XX XX)",
+                  "phone",
+                  false,
+                  "phone-pad",
+                  11
+                )}
+                {renderInputField("password", "Şifre", "lock", !showPassword)}
+                {renderInputField(
+                  "confirmPassword",
+                  "Şifre Tekrar",
+                  "lock-outline",
+                  !showConfirmPassword
+                )}
 
                 {/* Kayıt Butonu */}
                 <TouchableOpacity
-                  style={[styles.registerButton, isLoading && styles.registerButtonDisabled]}
+                  style={[
+                    styles.registerButton,
+                    isLoading && styles.registerButtonDisabled,
+                  ]}
                   onPress={handleRegister}
                   disabled={isLoading}
                   activeOpacity={0.8}
                 >
                   <LinearGradient
-                    colors={isLoading ? [Colors.disabled, Colors.disabled] : [Colors.background, Colors.surface]}
+                    colors={
+                      isLoading
+                        ? [Colors.disabled, Colors.disabled]
+                        : [Colors.background, Colors.surface]
+                    }
                     style={styles.registerButtonGradient}
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
                   >
                     {isLoading ? (
                       <View style={styles.loadingContainer}>
-                        <Text style={styles.loadingText}>Kayıt oluşturuluyor...</Text>
+                        <Text style={styles.loadingText}>
+                          Kayıt oluşturuluyor...
+                        </Text>
                       </View>
                     ) : (
                       <Text style={styles.registerButtonText}>Kayıt Ol</Text>
@@ -276,9 +314,14 @@ const RegisterScreen: React.FC = () => {
 
               {/* KVKK Bilgilendirmesi */}
               <View style={styles.kvkkContainer}>
-                <Icon name="info-outline" size={16} color={Colors.textOnPrimary} />
+                <Icon
+                  name="info-outline"
+                  size={16}
+                  color={Colors.textOnPrimary}
+                />
                 <Text style={styles.kvkkText}>
-                  Kayıt olarak KVKK kapsamında kişisel verilerinizin işlenmesini kabul etmiş olursunuz.
+                  Kayıt olarak KVKK kapsamında kişisel verilerinizin işlenmesini
+                  kabul etmiş olursunuz.
                 </Text>
               </View>
             </Animated.View>
@@ -290,7 +333,7 @@ const RegisterScreen: React.FC = () => {
       <SMSVerification
         visible={showSMSVerification}
         onClose={() => setShowSMSVerification(false)}
-        phoneNumber={formData.phone || '05551234567'}
+        phoneNumber={formData.phone || "05551234567"}
         onVerify={handleSMSVerify}
       />
     </SafeAreaView>
@@ -316,30 +359,30 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
-    position: 'relative',
+    position: "relative",
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     top: 0,
     padding: 8,
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.textOnPrimary,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 8,
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: {width: 1, height: 1},
+    textShadowColor: "rgba(0, 0, 0, 0.3)",
+    textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
   },
   subtitle: {
     fontSize: 16,
     color: Colors.textOnPrimary,
-    textAlign: 'center',
+    textAlign: "center",
     opacity: 0.8,
   },
   formContainer: {
@@ -349,13 +392,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputWrapper: {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
-    shadowColor: '#000',
+    flexDirection: "row",
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -384,7 +427,7 @@ const styles = StyleSheet.create({
   registerButton: {
     borderRadius: 16,
     marginTop: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -399,25 +442,25 @@ const styles = StyleSheet.create({
   registerButtonGradient: {
     paddingVertical: 16,
     borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   registerButtonText: {
     color: Colors.primary,
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   loadingContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   loadingText: {
     color: Colors.textSecondary,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 24,
   },
   loginText: {
@@ -428,13 +471,13 @@ const styles = StyleSheet.create({
   loginLink: {
     color: Colors.textOnPrimary,
     fontSize: 16,
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
+    fontWeight: "bold",
+    textDecorationLine: "underline",
   },
   kvkkContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    flexDirection: "row",
+    alignItems: "flex-start",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     padding: 16,
     borderRadius: 12,
     marginTop: 20,

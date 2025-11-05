@@ -1,7 +1,7 @@
-import {StyleSheet, Dimensions} from 'react-native';
-import {Colors} from './Colors';
+import { StyleSheet, Dimensions } from "react-native";
+import { Colors } from "./Colors";
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 export const GlobalStyles = StyleSheet.create({
   // Container Styles
@@ -22,8 +22,8 @@ export const GlobalStyles = StyleSheet.create({
 
   centerContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   // Card Styles
@@ -48,18 +48,18 @@ export const GlobalStyles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   buttonText: {
     color: Colors.textOnPrimary,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 
   secondaryButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: Colors.primary,
   },
@@ -67,20 +67,20 @@ export const GlobalStyles = StyleSheet.create({
   secondaryButtonText: {
     color: Colors.primary,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 
   // Text Styles
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
     marginBottom: 8,
   },
 
   subtitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text,
     marginBottom: 4,
   },
@@ -120,19 +120,19 @@ export const GlobalStyles = StyleSheet.create({
   // Loading Styles
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: Colors.background,
   },
 
   // Layout Helpers
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   spaceBetween: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
 
   spacingXS: {
@@ -185,7 +185,7 @@ export const GlobalStyles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   statusBadgeActive: {
@@ -203,7 +203,7 @@ export const GlobalStyles = StyleSheet.create({
   statusText: {
     color: Colors.textOnPrimary,
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 

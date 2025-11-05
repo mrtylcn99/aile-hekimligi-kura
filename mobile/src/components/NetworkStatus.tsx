@@ -1,24 +1,24 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
   Animated,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Colors} from '../styles/Colors';
+} from "react-native";
+import NetInfo from "@react-native-community/netinfo";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { Colors } from "../styles/Colors";
 
 const NetworkStatus: React.FC = () => {
   const [isConnected, setIsConnected] = useState(true);
-  const [connectionType, setConnectionType] = useState<string>('');
+  const [connectionType, setConnectionType] = useState<string>("");
   const [showBanner, setShowBanner] = useState(false);
   const slideAnim = useRef(new Animated.Value(-100)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(state => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
       const connected = state.isConnected ?? false;
       const type = state.type;
 
@@ -56,18 +56,22 @@ const NetworkStatus: React.FC = () => {
   };
 
   const getConnectionIcon = () => {
-    if (!isConnected) return 'wifi-off';
+    if (!isConnected) return "wifi-off";
     switch (connectionType) {
-      case 'wifi': return 'wifi';
-      case 'cellular': return 'signal-cellular-alt';
-      case 'ethernet': return 'settings-ethernet';
-      default: return 'signal-cellular-alt';
+      case "wifi":
+        return "wifi";
+      case "cellular":
+        return "signal-cellular-alt";
+      case "ethernet":
+        return "settings-ethernet";
+      default:
+        return "signal-cellular-alt";
     }
   };
 
   const getConnectionText = () => {
-    if (!isConnected) return 'İnternet bağlantısı yok';
-    return 'Bağlantı yeniden kuruldu';
+    if (!isConnected) return "İnternet bağlantısı yok";
+    return "Bağlantı yeniden kuruldu";
   };
 
   const getConnectionColor = () => {
@@ -82,17 +86,19 @@ const NetworkStatus: React.FC = () => {
         styles.container,
         {
           backgroundColor: getConnectionColor(),
-          transform: [{translateY: slideAnim}],
+          transform: [{ translateY: slideAnim }],
           opacity: fadeAnim,
         },
-      ]}>
+      ]}
+    >
       <View style={styles.content}>
         <Icon name={getConnectionIcon()} size={20} color="white" />
         <Text style={styles.text}>{getConnectionText()}</Text>
         {!isConnected && (
           <TouchableOpacity
             onPress={() => NetInfo.fetch()}
-            style={styles.retryButton}>
+            style={styles.retryButton}
+          >
             <Icon name="refresh" size={16} color="white" />
           </TouchableOpacity>
         )}
@@ -103,7 +109,7 @@ const NetworkStatus: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
@@ -111,17 +117,17 @@ const styles = StyleSheet.create({
     elevation: 999,
   },
   content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 16,
     paddingVertical: 12,
     paddingTop: 40, // Account for status bar
   },
   text: {
-    color: 'white',
+    color: "white",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 8,
   },
   retryButton: {

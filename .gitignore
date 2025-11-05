@@ -78,9 +78,9 @@ mobile/android/**/*.keystore
 **/build/generated/
 **/dependencies-accessors/
 
-# Eclipse/IDE generated files (only ignore metadata, keep project files)
+# Eclipse/IDE generated files (allow project files for React Native)
 .metadata/
-# Note: .classpath, .project, .settings/ are needed for Java projects
+# Allow .classpath, .project, .settings/ for React Native Android builds
 
 # iOS
 mobile/ios/Pods/

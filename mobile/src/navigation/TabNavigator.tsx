@@ -1,15 +1,15 @@
-import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-import {Colors} from '../styles/Colors';
+import { Colors } from "../styles/Colors";
 
 // Screens
-import DashboardScreen from '../screens/main/DashboardScreen';
-import KuraListScreen from '../screens/main/KuraListScreen';
-import ApplicationsScreen from '../screens/main/ApplicationsScreen';
-import ProfileScreen from '../screens/main/ProfileScreen';
+import DashboardScreen from "../screens/main/DashboardScreen";
+import KuraListScreen from "../screens/main/KuraListScreen";
+import ApplicationsScreen from "../screens/main/ApplicationsScreen";
+import ProfileScreen from "../screens/main/ProfileScreen";
 
 export type TabParamList = {
   Dashboard: undefined;
@@ -27,17 +27,13 @@ interface TabIconProps {
   focused: boolean;
 }
 
-const TabIcon: React.FC<TabIconProps> = ({name, color, size, focused}) => (
-  <View style={{alignItems: 'center', justifyContent: 'center'}}>
-    <Icon
-      name={name}
-      size={focused ? size + 2 : size}
-      color={color}
-    />
+const TabIcon: React.FC<TabIconProps> = ({ name, color, size, focused }) => (
+  <View style={{ alignItems: "center", justifyContent: "center" }}>
+    <Icon name={name} size={focused ? size + 2 : size} color={color} />
     {focused && (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: -8,
           width: 4,
           height: 4,
@@ -52,7 +48,7 @@ const TabIcon: React.FC<TabIconProps> = ({name, color, size, focused}) => (
 const TabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors.background,
@@ -74,27 +70,27 @@ const TabNavigator: React.FC = () => {
         tabBarInactiveTintColor: Colors.textSecondary,
         tabBarLabelStyle: {
           fontSize: 11,
-          fontWeight: '600',
+          fontWeight: "600",
           marginTop: 4,
         },
-        tabBarIcon: ({focused, color, size}) => {
+        tabBarIcon: ({ focused, color, size }) => {
           let iconName: string;
 
           switch (route.name) {
-            case 'Dashboard':
-              iconName = 'dashboard';
+            case "Dashboard":
+              iconName = "dashboard";
               break;
-            case 'KuraList':
-              iconName = 'list-alt';
+            case "KuraList":
+              iconName = "list-alt";
               break;
-            case 'Applications':
-              iconName = 'assignment';
+            case "Applications":
+              iconName = "assignment";
               break;
-            case 'Profile':
-              iconName = 'person';
+            case "Profile":
+              iconName = "person";
               break;
             default:
-              iconName = 'help';
+              iconName = "help";
           }
 
           return (
@@ -112,28 +108,28 @@ const TabNavigator: React.FC = () => {
         name="Dashboard"
         component={DashboardScreen}
         options={{
-          tabBarLabel: 'Ana Sayfa',
+          tabBarLabel: "Ana Sayfa",
         }}
       />
       <Tab.Screen
         name="KuraList"
         component={KuraListScreen}
         options={{
-          tabBarLabel: 'Kuralar',
+          tabBarLabel: "Kuralar",
         }}
       />
       <Tab.Screen
         name="Applications"
         component={ApplicationsScreen}
         options={{
-          tabBarLabel: 'Başvurularım',
+          tabBarLabel: "Başvurularım",
         }}
       />
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarLabel: 'Profil',
+          tabBarLabel: "Profil",
         }}
       />
     </Tab.Navigator>

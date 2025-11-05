@@ -1,9 +1,9 @@
-import axios, {AxiosInstance, AxiosResponse, AxiosError} from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Toast from 'react-native-toast-message';
+import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 // API URL - Production Render.com backend
-const API_BASE_URL = 'https://aile-hekimligi-backend.onrender.com'; // Render.com Production URL
+const API_BASE_URL = "https://aile-hekimligi-backend.onrender.com"; // Render.com Production URL
 
 // Mock mode for offline testing
 const USE_MOCK_DATA = false; // Backend is now available on Render.com
@@ -18,7 +18,7 @@ class ApiServiceClass {
       baseURL: API_BASE_URL,
       timeout: 30000,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -51,28 +51,28 @@ class ApiServiceClass {
         } else if (error.response?.status >= 500) {
           // Sunucu hatası
           Toast.show({
-            type: 'error',
-            text1: 'Sunucu Hatası! 🚨',
-            text2: 'Lütfen daha sonra tekrar deneyiniz.',
-            position: 'top',
+            type: "error",
+            text1: "Sunucu Hatası! 🚨",
+            text2: "Lütfen daha sonra tekrar deneyiniz.",
+            position: "top",
             visibilityTime: 4000,
           });
-        } else if (error.code === 'ECONNABORTED') {
+        } else if (error.code === "ECONNABORTED") {
           // Timeout hatası
           Toast.show({
-            type: 'error',
-            text1: 'Bağlantı Zaman Aşımı! ⏰',
-            text2: 'İnternet bağlantınızı kontrol ediniz.',
-            position: 'top',
+            type: "error",
+            text1: "Bağlantı Zaman Aşımı! ⏰",
+            text2: "İnternet bağlantınızı kontrol ediniz.",
+            position: "top",
             visibilityTime: 4000,
           });
         } else if (!error.response) {
           // Network hatası
           Toast.show({
-            type: 'error',
-            text1: 'İnternet Bağlantısı Yok! 📡',
-            text2: 'Bağlantınızı kontrol edip tekrar deneyiniz.',
-            position: 'top',
+            type: "error",
+            text1: "İnternet Bağlantısı Yok! 📡",
+            text2: "Bağlantınızı kontrol edip tekrar deneyiniz.",
+            position: "top",
             visibilityTime: 4000,
           });
         }
@@ -85,13 +85,16 @@ class ApiServiceClass {
   private async handleUnauthorized() {
     // Token'ı temizle ve kullanıcıyı logout yap
     this.token = null;
-    await AsyncStorage.multiRemove(['@AileHekimligi:token', '@AileHekimligi:user']);
+    await AsyncStorage.multiRemove([
+      "@AileHekimligi:token",
+      "@AileHekimligi:user",
+    ]);
 
     Toast.show({
-      type: 'error',
-      text1: 'Oturum Süresi Doldu! ⏰',
-      text2: 'Lütfen tekrar giriş yapınız.',
-      position: 'top',
+      type: "error",
+      text1: "Oturum Süresi Doldu! ⏰",
+      text2: "Lütfen tekrar giriş yapınız.",
+      position: "top",
       visibilityTime: 4000,
     });
   }
@@ -130,7 +133,7 @@ class ApiServiceClass {
   async uploadFile(url: string, formData: FormData): Promise<AxiosResponse> {
     return this.api.post(url, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
   }
@@ -138,7 +141,7 @@ class ApiServiceClass {
   // Health check
   async healthCheck(): Promise<boolean> {
     try {
-      const response = await this.api.get('/health');
+      const response = await this.api.get("/health");
       return response.status === 200;
     } catch (error) {
       return false;
@@ -146,13 +149,16 @@ class ApiServiceClass {
   }
 
   // Mock data helpers
-  private async mockResponse(data: any, delay: number = 500): Promise<AxiosResponse> {
+  private async mockResponse(
+    data: any,
+    delay: number = 500
+  ): Promise<AxiosResponse> {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
           data: data,
           status: 200,
-          statusText: 'OK',
+          statusText: "OK",
           headers: {},
           config: {} as any,
         });
@@ -164,24 +170,24 @@ class ApiServiceClass {
   async login(tcKimlik: string, password: string) {
     if (this.mockMode) {
       // Mock successful login
-      if (tcKimlik === '12345678901' && password === '123456') {
+      if (tcKimlik === "12345678901" && password === "123456") {
         return this.mockResponse({
           success: true,
-          token: 'mock-jwt-token-' + Date.now(),
+          token: "mock-jwt-token-" + Date.now(),
           user: {
-            id: '1',
-            tcKimlik: '12345678901',
-            firstName: 'Test',
-            lastName: 'Kullanıcı',
-            email: 'test@example.com',
-            phone: '5551234567',
-          }
+            id: "1",
+            tcKimlik: "12345678901",
+            firstName: "Test",
+            lastName: "Kullanıcı",
+            email: "test@example.com",
+            phone: "5551234567",
+          },
         });
       } else {
-        throw new Error('TC Kimlik veya şifre hatalı');
+        throw new Error("TC Kimlik veya şifre hatalı");
       }
     }
-    return this.post('/api/auth/login', {tcKimlik, password});
+    return this.post("/api/auth/login", { tcKimlik, password });
   }
 
   async register(userData: any) {
@@ -189,15 +195,15 @@ class ApiServiceClass {
       // Mock successful registration
       return this.mockResponse({
         success: true,
-        message: 'Kayıt başarılı',
-        token: 'mock-jwt-token-' + Date.now(),
+        message: "Kayıt başarılı",
+        token: "mock-jwt-token-" + Date.now(),
         user: {
-          id: '1',
+          id: "1",
           ...userData,
-        }
+        },
       });
     }
-    return this.post('/api/auth/register', userData);
+    return this.post("/api/auth/register", userData);
   }
 
   async verifyToken() {
@@ -206,29 +212,29 @@ class ApiServiceClass {
       return this.mockResponse({
         valid: true,
         user: {
-          id: '1',
-          tcKimlik: '12345678901',
-          firstName: 'Test',
-          lastName: 'Kullanıcı',
-          email: 'test@example.com',
-        }
+          id: "1",
+          tcKimlik: "12345678901",
+          firstName: "Test",
+          lastName: "Kullanıcı",
+          email: "test@example.com",
+        },
       });
     }
-    return this.get('/api/auth/verify');
+    return this.get("/api/auth/verify");
   }
 
   // User endpoints
   async getUserProfile() {
-    return this.get('/api/user/profile');
+    return this.get("/api/user/profile");
   }
 
   async updateUserProfile(userData: any) {
-    return this.put('/api/user/profile', userData);
+    return this.put("/api/user/profile", userData);
   }
 
   // Kura endpoints
   async getKuraList() {
-    return this.get('/api/kura');
+    return this.get("/api/kura");
   }
 
   async getKuraById(id: string) {
@@ -237,11 +243,11 @@ class ApiServiceClass {
 
   // Application endpoints
   async getUserApplications() {
-    return this.get('/api/user/applications');
+    return this.get("/api/user/applications");
   }
 
   async createApplication(applicationData: any) {
-    return this.post('/api/applications', applicationData);
+    return this.post("/api/applications", applicationData);
   }
 
   async updateApplication(id: string, applicationData: any) {
@@ -254,13 +260,13 @@ class ApiServiceClass {
 
   // Province endpoints
   async getProvinces() {
-    return this.get('/api/provinces');
+    return this.get("/api/provinces");
   }
 
   // PDF endpoints
   async generateApplicationPDF(applicationId: string) {
     return this.get(`/api/pdf/application/${applicationId}`, {
-      responseType: 'blob',
+      responseType: "blob",
     });
   }
 }

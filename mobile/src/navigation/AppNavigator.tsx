@@ -1,16 +1,16 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {useAuth} from '../contexts/AuthContext';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useAuth } from "../contexts/AuthContext";
 
 // Auth Screens
-import LoginScreen from '../screens/auth/LoginScreen';
-import RegisterScreen from '../screens/auth/RegisterScreen';
+import LoginScreen from "../screens/auth/LoginScreen";
+import RegisterScreen from "../screens/auth/RegisterScreen";
 
 // Main App Navigation
-import TabNavigator from './TabNavigator';
+import TabNavigator from "./TabNavigator";
 
 // Loading Screen
-import LoadingScreen from '../screens/LoadingScreen';
+import LoadingScreen from "../screens/LoadingScreen";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -22,12 +22,12 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
-  const {user, loading} = useAuth();
+  const { user, loading } = useAuth();
 
   // Loading state
   if (loading) {
     return (
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Loading" component={LoadingScreen} />
       </Stack.Navigator>
     );
@@ -37,7 +37,7 @@ const AppNavigator: React.FC = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: {backgroundColor: 'transparent'},
+        cardStyle: { backgroundColor: "transparent" },
         cardOverlayEnabled: true,
         gestureEnabled: true,
       }}
@@ -48,7 +48,7 @@ const AppNavigator: React.FC = () => {
           name="MainApp"
           component={TabNavigator}
           options={{
-            animationTypeForReplace: 'push',
+            animationTypeForReplace: "push",
           }}
         />
       ) : (
@@ -58,15 +58,15 @@ const AppNavigator: React.FC = () => {
             name="Login"
             component={LoginScreen}
             options={{
-              animationTypeForReplace: 'pop',
+              animationTypeForReplace: "pop",
             }}
           />
           <Stack.Screen
             name="Register"
             component={RegisterScreen}
             options={{
-              presentation: 'modal',
-              gestureDirection: 'vertical',
+              presentation: "modal",
+              gestureDirection: "vertical",
             }}
           />
         </>

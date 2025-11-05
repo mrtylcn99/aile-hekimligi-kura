@@ -1,7 +1,7 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Colors} from '../styles/Colors';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { Colors } from "../styles/Colors";
 
 interface EmptyStateProps {
   icon?: string;
@@ -9,7 +9,7 @@ interface EmptyStateProps {
   description?: string;
   actionLabel?: string;
   onAction?: () => void;
-  type?: 'default' | 'error' | 'search' | 'notification' | 'application';
+  type?: "default" | "error" | "search" | "notification" | "application";
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({
@@ -18,31 +18,40 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   description,
   actionLabel,
   onAction,
-  type = 'default',
+  type = "default",
 }) => {
   const getIconForType = () => {
     switch (type) {
-      case 'error': return 'error-outline';
-      case 'search': return 'search-off';
-      case 'notification': return 'notifications-none';
-      case 'application': return 'assignment';
-      default: return 'inbox';
+      case "error":
+        return "error-outline";
+      case "search":
+        return "search-off";
+      case "notification":
+        return "notifications-none";
+      case "application":
+        return "assignment";
+      default:
+        return "inbox";
     }
   };
 
   const getColorForType = () => {
     switch (type) {
-      case 'error': return Colors.error;
-      default: return Colors.textLight;
+      case "error":
+        return Colors.error;
+      default:
+        return Colors.textLight;
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={[
-        styles.iconContainer,
-        {backgroundColor: `${getColorForType()}10`}
-      ]}>
+      <View
+        style={[
+          styles.iconContainer,
+          { backgroundColor: `${getColorForType()}10` },
+        ]}
+      >
         <Icon
           name={icon || getIconForType()}
           size={64}
@@ -52,14 +61,10 @@ const EmptyState: React.FC<EmptyStateProps> = ({
 
       <Text style={styles.title}>{title}</Text>
 
-      {description && (
-        <Text style={styles.description}>{description}</Text>
-      )}
+      {description && <Text style={styles.description}>{description}</Text>}
 
       {actionLabel && onAction && (
-        <TouchableOpacity
-          style={styles.actionButton}
-          onPress={onAction}>
+        <TouchableOpacity style={styles.actionButton} onPress={onAction}>
           <Text style={styles.actionButtonText}>{actionLabel}</Text>
         </TouchableOpacity>
       )}
@@ -76,7 +81,7 @@ export const NoDataEmpty: React.FC = () => (
   />
 );
 
-export const NoSearchResults: React.FC<{query: string}> = ({query}) => (
+export const NoSearchResults: React.FC<{ query: string }> = ({ query }) => (
   <EmptyState
     type="search"
     title="Sonuç Bulunamadı"
@@ -84,7 +89,9 @@ export const NoSearchResults: React.FC<{query: string}> = ({query}) => (
   />
 );
 
-export const NoApplications: React.FC<{onCreateNew: () => void}> = ({onCreateNew}) => (
+export const NoApplications: React.FC<{ onCreateNew: () => void }> = ({
+  onCreateNew,
+}) => (
   <EmptyState
     type="application"
     title="Başvuru Yok"
@@ -102,7 +109,9 @@ export const NoNotifications: React.FC = () => (
   />
 );
 
-export const NetworkError: React.FC<{onRetry: () => void}> = ({onRetry}) => (
+export const NetworkError: React.FC<{ onRetry: () => void }> = ({
+  onRetry,
+}) => (
   <EmptyState
     type="error"
     icon="wifi-off"
@@ -113,7 +122,7 @@ export const NetworkError: React.FC<{onRetry: () => void}> = ({onRetry}) => (
   />
 );
 
-export const ServerError: React.FC<{onRetry: () => void}> = ({onRetry}) => (
+export const ServerError: React.FC<{ onRetry: () => void }> = ({ onRetry }) => (
   <EmptyState
     type="error"
     icon="cloud-off"
@@ -127,29 +136,29 @@ export const ServerError: React.FC<{onRetry: () => void}> = ({onRetry}) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 32,
   },
   iconContainer: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 24,
   },
   title: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text,
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   description: {
     fontSize: 14,
     color: Colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 24,
     paddingHorizontal: 16,
     lineHeight: 20,
@@ -161,9 +170,9 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   actionButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 

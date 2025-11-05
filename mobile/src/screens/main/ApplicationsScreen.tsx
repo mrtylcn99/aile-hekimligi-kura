@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -8,19 +8,19 @@ import {
   Animated,
   RefreshControl,
   Alert,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-import {Colors} from '../../styles/Colors';
-import {GlobalStyles} from '../../styles/GlobalStyles';
+import { Colors } from "../../styles/Colors";
+import { GlobalStyles } from "../../styles/GlobalStyles";
 
 interface Application {
   id: string;
   kuraTitle: string;
   location: string;
   applicationDate: string;
-  status: 'pending' | 'approved' | 'rejected' | 'under_review';
+  status: "pending" | "approved" | "rejected" | "under_review";
   priority: number;
   lastUpdate: string;
 }
@@ -28,7 +28,9 @@ interface Application {
 const ApplicationsScreen: React.FC = () => {
   const [applications, setApplications] = useState<Application[]>([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState<'all' | Application['status']>('all');
+  const [selectedFilter, setSelectedFilter] = useState<
+    "all" | Application["status"]
+  >("all");
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -46,37 +48,37 @@ const ApplicationsScreen: React.FC = () => {
       // Mock data - gerçek API'den gelecek
       const mockApplications: Application[] = [
         {
-          id: '1',
-          kuraTitle: 'Ankara - Çankaya Aile Hekimliği',
-          location: 'Ankara / Çankaya',
-          applicationDate: '2024-01-15',
-          status: 'approved',
+          id: "1",
+          kuraTitle: "Ankara - Çankaya Aile Hekimliği",
+          location: "Ankara / Çankaya",
+          applicationDate: "2024-01-15",
+          status: "approved",
           priority: 1,
-          lastUpdate: '2024-01-20',
+          lastUpdate: "2024-01-20",
         },
         {
-          id: '2',
-          kuraTitle: 'İstanbul - Kadıköy Aile Hekimliği',
-          location: 'İstanbul / Kadıköy',
-          applicationDate: '2024-01-18',
-          status: 'under_review',
+          id: "2",
+          kuraTitle: "İstanbul - Kadıköy Aile Hekimliği",
+          location: "İstanbul / Kadıköy",
+          applicationDate: "2024-01-18",
+          status: "under_review",
           priority: 2,
-          lastUpdate: '2024-01-25',
+          lastUpdate: "2024-01-25",
         },
         {
-          id: '3',
-          kuraTitle: 'İzmir - Bornova Aile Hekimliği',
-          location: 'İzmir / Bornova',
-          applicationDate: '2024-01-10',
-          status: 'pending',
+          id: "3",
+          kuraTitle: "İzmir - Bornova Aile Hekimliği",
+          location: "İzmir / Bornova",
+          applicationDate: "2024-01-10",
+          status: "pending",
           priority: 3,
-          lastUpdate: '2024-01-10',
+          lastUpdate: "2024-01-10",
         },
       ];
 
       setApplications(mockApplications);
     } catch (error) {
-      console.error('Başvuru listesi yüklenirken hata:', error);
+      console.error("Başvuru listesi yüklenirken hata:", error);
     }
   };
 
@@ -86,58 +88,80 @@ const ApplicationsScreen: React.FC = () => {
     setRefreshing(false);
   };
 
-  const getStatusColor = (status: Application['status']) => {
+  const getStatusColor = (status: Application["status"]) => {
     switch (status) {
-      case 'approved': return Colors.success;
-      case 'rejected': return Colors.error;
-      case 'under_review': return Colors.warning;
-      case 'pending': return Colors.info;
-      default: return Colors.textSecondary;
+      case "approved":
+        return Colors.success;
+      case "rejected":
+        return Colors.error;
+      case "under_review":
+        return Colors.warning;
+      case "pending":
+        return Colors.info;
+      default:
+        return Colors.textSecondary;
     }
   };
 
-  const getStatusText = (status: Application['status']) => {
+  const getStatusText = (status: Application["status"]) => {
     switch (status) {
-      case 'approved': return 'Onaylandı';
-      case 'rejected': return 'Reddedildi';
-      case 'under_review': return 'İnceleniyor';
-      case 'pending': return 'Beklemede';
-      default: return 'Bilinmiyor';
+      case "approved":
+        return "Onaylandı";
+      case "rejected":
+        return "Reddedildi";
+      case "under_review":
+        return "İnceleniyor";
+      case "pending":
+        return "Beklemede";
+      default:
+        return "Bilinmiyor";
     }
   };
 
-  const getStatusIcon = (status: Application['status']) => {
+  const getStatusIcon = (status: Application["status"]) => {
     switch (status) {
-      case 'approved': return 'check-circle';
-      case 'rejected': return 'cancel';
-      case 'under_review': return 'hourglass-empty';
-      case 'pending': return 'schedule';
-      default: return 'help';
+      case "approved":
+        return "check-circle";
+      case "rejected":
+        return "cancel";
+      case "under_review":
+        return "hourglass-empty";
+      case "pending":
+        return "schedule";
+      default:
+        return "help";
     }
   };
 
   const handleDeleteApplication = (id: string) => {
     Alert.alert(
-      'Başvuruyu Sil',
-      'Bu başvuruyu silmek istediğinizden emin misiniz?',
+      "Başvuruyu Sil",
+      "Bu başvuruyu silmek istediğinizden emin misiniz?",
       [
-        {text: 'İptal', style: 'cancel'},
+        { text: "İptal", style: "cancel" },
         {
-          text: 'Sil',
-          style: 'destructive',
+          text: "Sil",
+          style: "destructive",
           onPress: () => {
-            setApplications(apps => apps.filter(app => app.id !== id));
+            setApplications((apps) => apps.filter((app) => app.id !== id));
           },
         },
       ]
     );
   };
 
-  const filteredApplications = selectedFilter === 'all'
-    ? applications
-    : applications.filter(app => app.status === selectedFilter);
+  const filteredApplications =
+    selectedFilter === "all"
+      ? applications
+      : applications.filter((app) => app.status === selectedFilter);
 
-  const renderApplicationItem = ({item, index}: {item: Application; index: number}) => (
+  const renderApplicationItem = ({
+    item,
+    index,
+  }: {
+    item: Application;
+    index: number;
+  }) => (
     <Animated.View
       style={[
         styles.applicationCard,
@@ -165,8 +189,17 @@ const ApplicationsScreen: React.FC = () => {
           <View style={styles.priorityBadge}>
             <Text style={styles.priorityText}>#{item.priority}</Text>
           </View>
-          <View style={[styles.statusContainer, {backgroundColor: getStatusColor(item.status)}]}>
-            <Icon name={getStatusIcon(item.status)} size={16} color={Colors.textOnPrimary} />
+          <View
+            style={[
+              styles.statusContainer,
+              { backgroundColor: getStatusColor(item.status) },
+            ]}
+          >
+            <Icon
+              name={getStatusIcon(item.status)}
+              size={16}
+              color={Colors.textOnPrimary}
+            />
             <Text style={styles.statusText}>{getStatusText(item.status)}</Text>
           </View>
         </View>
@@ -207,17 +240,19 @@ const ApplicationsScreen: React.FC = () => {
             onPress={() => {
               // Düzenle
             }}
-            disabled={item.status === 'approved'}
+            disabled={item.status === "approved"}
           >
             <Icon
               name="edit"
               size={18}
-              color={item.status === 'approved' ? Colors.disabled : Colors.warning}
+              color={
+                item.status === "approved" ? Colors.disabled : Colors.warning
+              }
             />
             <Text
               style={[
                 styles.editButtonText,
-                item.status === 'approved' && styles.disabledText,
+                item.status === "approved" && styles.disabledText,
               ]}
             >
               Düzenle
@@ -227,17 +262,19 @@ const ApplicationsScreen: React.FC = () => {
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => handleDeleteApplication(item.id)}
-            disabled={item.status === 'approved'}
+            disabled={item.status === "approved"}
           >
             <Icon
               name="delete"
               size={18}
-              color={item.status === 'approved' ? Colors.disabled : Colors.error}
+              color={
+                item.status === "approved" ? Colors.disabled : Colors.error
+              }
             />
             <Text
               style={[
                 styles.deleteButtonText,
-                item.status === 'approved' && styles.disabledText,
+                item.status === "approved" && styles.disabledText,
               ]}
             >
               Sil
@@ -280,11 +317,11 @@ const ApplicationsScreen: React.FC = () => {
 
       {/* Filter Buttons */}
       <View style={styles.filterContainer}>
-        {renderFilterButton('all', 'Tümü')}
-        {renderFilterButton('pending', 'Beklemede')}
-        {renderFilterButton('under_review', 'İnceleniyor')}
-        {renderFilterButton('approved', 'Onaylı')}
-        {renderFilterButton('rejected', 'Reddedilen')}
+        {renderFilterButton("all", "Tümü")}
+        {renderFilterButton("pending", "Beklemede")}
+        {renderFilterButton("under_review", "İnceleniyor")}
+        {renderFilterButton("approved", "Onaylı")}
+        {renderFilterButton("rejected", "Reddedilen")}
       </View>
 
       {/* Applications List */}
@@ -307,10 +344,13 @@ const ApplicationsScreen: React.FC = () => {
             <Icon name="assignment" size={64} color={Colors.textLight} />
             <Text style={styles.emptyText}>Başvuru bulunamadı</Text>
             <Text style={styles.emptySubtext}>
-              Henüz hiç başvuru yapmadınız veya seçili filtrelerinize uygun başvuru bulunmuyor
+              Henüz hiç başvuru yapmadınız veya seçili filtrelerinize uygun
+              başvuru bulunmuyor
             </Text>
             <TouchableOpacity style={styles.newApplicationButton}>
-              <Text style={styles.newApplicationButtonText}>Yeni Başvuru Yap</Text>
+              <Text style={styles.newApplicationButtonText}>
+                Yeni Başvuru Yap
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -325,9 +365,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -335,14 +375,14 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
   },
   addButton: {
     padding: 8,
   },
   filterContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 20,
     paddingVertical: 16,
     gap: 8,
@@ -361,7 +401,7 @@ const styles = StyleSheet.create({
   },
   filterButtonText: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.textSecondary,
   },
   filterButtonTextActive: {
@@ -381,9 +421,9 @@ const styles = StyleSheet.create({
     ...GlobalStyles.shadow,
   },
   applicationHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   priorityBadge: {
@@ -394,12 +434,12 @@ const styles = StyleSheet.create({
   },
   priorityText: {
     fontSize: 12,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.primary,
   },
   statusContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
@@ -407,18 +447,18 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.textOnPrimary,
   },
   applicationTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
     marginBottom: 8,
   },
   applicationLocation: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 12,
   },
   locationText: {
@@ -431,8 +471,8 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   dateItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   dateText: {
     fontSize: 12,
@@ -440,53 +480,53 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   actionButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     paddingTop: 12,
     borderTopWidth: 1,
     borderTopColor: Colors.border,
   },
   viewButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   viewButtonText: {
     fontSize: 14,
     color: Colors.primary,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   editButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   editButtonText: {
     fontSize: 14,
     color: Colors.warning,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   deleteButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   deleteButtonText: {
     fontSize: 14,
     color: Colors.error,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   disabledText: {
     color: Colors.disabled,
   },
   emptyContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 60,
   },
   emptyText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.textSecondary,
     marginTop: 16,
   },
@@ -494,7 +534,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.textLight,
     marginTop: 8,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 20,
   },
   newApplicationButton: {
@@ -507,7 +547,7 @@ const styles = StyleSheet.create({
   newApplicationButtonText: {
     color: Colors.textOnPrimary,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 

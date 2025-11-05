@@ -1,4 +1,4 @@
-import React, {Component, ErrorInfo, ReactNode} from 'react';
+import React, { Component, ErrorInfo, ReactNode } from "react";
 import {
   View,
   Text,
@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import DeviceInfo from 'react-native-device-info';
-import {Colors} from '../styles/Colors';
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import DeviceInfo from "react-native-device-info";
+import { Colors } from "../styles/Colors";
 
 interface Props {
   children: ReactNode;
@@ -45,7 +45,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log error to error reporting service (Sentry, Bugsnag, etc.)
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
 
     this.setState({
       error,
@@ -76,10 +76,10 @@ class ErrorBoundary extends Component<Props, State> {
         timestamp: new Date().toISOString(),
       };
 
-      console.log('Error report:', errorReport);
+      console.log("Error report:", errorReport);
       // await ApiService.post('/api/errors', errorReport);
     } catch (reportError) {
-      console.error('Failed to report error:', reportError);
+      console.error("Failed to report error:", reportError);
     }
   };
 
@@ -108,8 +108,8 @@ class ErrorBoundary extends Component<Props, State> {
         <View style={styles.container}>
           <ScrollView
             contentContainerStyle={styles.scrollContainer}
-            showsVerticalScrollIndicator={false}>
-
+            showsVerticalScrollIndicator={false}
+          >
             {/* Error Icon */}
             <View style={styles.iconContainer}>
               <Icon name="error-outline" size={80} color={Colors.error} />
@@ -144,16 +144,20 @@ class ErrorBoundary extends Component<Props, State> {
             <View style={styles.actions}>
               <TouchableOpacity
                 style={styles.primaryButton}
-                onPress={this.handleReset}>
+                onPress={this.handleReset}
+              >
                 <Icon name="refresh" size={20} color="white" />
                 <Text style={styles.primaryButtonText}>Tekrar Dene</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.secondaryButton}
-                onPress={this.handleRestart}>
+                onPress={this.handleRestart}
+              >
                 <Icon name="restart-alt" size={20} color={Colors.primary} />
-                <Text style={styles.secondaryButtonText}>Uygulamayı Yeniden Başlat</Text>
+                <Text style={styles.secondaryButtonText}>
+                  Uygulamayı Yeniden Başlat
+                </Text>
               </TouchableOpacity>
             </View>
 
@@ -162,16 +166,22 @@ class ErrorBoundary extends Component<Props, State> {
               <View style={styles.warningBox}>
                 <Icon name="warning" size={16} color={Colors.warning} />
                 <Text style={styles.warningText}>
-                  Bu hata birden fazla kez oluştu. Lütfen uygulamayı güncelleyin veya destek ile iletişime geçin.
+                  Bu hata birden fazla kez oluştu. Lütfen uygulamayı güncelleyin
+                  veya destek ile iletişime geçin.
                 </Text>
               </View>
             )}
 
             {/* Support Info */}
             <View style={styles.supportInfo}>
-              <Icon name="help-outline" size={16} color={Colors.textSecondary} />
+              <Icon
+                name="help-outline"
+                size={16}
+                color={Colors.textSecondary}
+              />
               <Text style={styles.supportText}>
-                Sorun devam ederse destek@ailehekimligi.gov.tr adresine bildirim yapabilirsiniz.
+                Sorun devam ederse destek@ailehekimligi.gov.tr adresine bildirim
+                yapabilirsiniz.
               </Text>
             </View>
           </ScrollView>
@@ -190,8 +200,8 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 24,
   },
   iconContainer: {
@@ -199,14 +209,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
     color: Colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 24,
   },
   errorDetails: {
@@ -214,11 +224,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 24,
-    width: '100%',
+    width: "100%",
   },
   errorDetailsTitle: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text,
     marginBottom: 8,
   },
@@ -228,7 +238,7 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 12,
     color: Colors.error,
-    fontFamily: 'monospace',
+    fontFamily: "monospace",
   },
   stackScroll: {
     maxHeight: 150,
@@ -237,31 +247,31 @@ const styles = StyleSheet.create({
   stackText: {
     fontSize: 10,
     color: Colors.textSecondary,
-    fontFamily: 'monospace',
+    fontFamily: "monospace",
   },
   actions: {
-    width: '100%',
+    width: "100%",
     marginBottom: 24,
   },
   primaryButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: Colors.primary,
     paddingVertical: 14,
     borderRadius: 12,
     marginBottom: 12,
   },
   primaryButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 8,
   },
   secondaryButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
     borderColor: Colors.primary,
     paddingVertical: 14,
@@ -270,18 +280,18 @@ const styles = StyleSheet.create({
   secondaryButtonText: {
     color: Colors.primary,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 8,
   },
   warningBox: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: `${Colors.warning}10`,
     borderLeftWidth: 4,
     borderLeftColor: Colors.warning,
     padding: 12,
     borderRadius: 8,
     marginBottom: 16,
-    width: '100%',
+    width: "100%",
   },
   warningText: {
     fontSize: 12,
@@ -290,14 +300,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   supportInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   supportText: {
     fontSize: 12,
     color: Colors.textSecondary,
     marginLeft: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 

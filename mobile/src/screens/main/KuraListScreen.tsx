@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -8,12 +8,12 @@ import {
   Animated,
   TextInput,
   RefreshControl,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-import {Colors} from '../../styles/Colors';
-import {GlobalStyles} from '../../styles/GlobalStyles';
+import { Colors } from "../../styles/Colors";
+import { GlobalStyles } from "../../styles/GlobalStyles";
 
 interface KuraItem {
   id: string;
@@ -22,15 +22,17 @@ interface KuraItem {
   quota: number;
   applicants: number;
   deadline: string;
-  status: 'active' | 'closed' | 'upcoming';
+  status: "active" | "closed" | "upcoming";
 }
 
 const KuraListScreen: React.FC = () => {
   const [kuralar, setKuralar] = useState<KuraItem[]>([]);
   const [filteredKuralar, setFilteredKuralar] = useState<KuraItem[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'active' | 'closed'>('all');
+  const [selectedFilter, setSelectedFilter] = useState<
+    "all" | "active" | "closed"
+  >("all");
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -52,51 +54,52 @@ const KuraListScreen: React.FC = () => {
       // Mock data - gerçek API'den gelecek
       const mockKuralar: KuraItem[] = [
         {
-          id: '1',
-          title: 'Ankara - Çankaya Aile Hekimliği',
-          location: 'Ankara / Çankaya',
+          id: "1",
+          title: "Ankara - Çankaya Aile Hekimliği",
+          location: "Ankara / Çankaya",
           quota: 5,
           applicants: 23,
-          deadline: '2024-02-15',
-          status: 'active',
+          deadline: "2024-02-15",
+          status: "active",
         },
         {
-          id: '2',
-          title: 'İstanbul - Kadıköy Aile Hekimliği',
-          location: 'İstanbul / Kadıköy',
+          id: "2",
+          title: "İstanbul - Kadıköy Aile Hekimliği",
+          location: "İstanbul / Kadıköy",
           quota: 3,
           applicants: 45,
-          deadline: '2024-02-20',
-          status: 'active',
+          deadline: "2024-02-20",
+          status: "active",
         },
         {
-          id: '3',
-          title: 'İzmir - Bornova Aile Hekimliği',
-          location: 'İzmir / Bornova',
+          id: "3",
+          title: "İzmir - Bornova Aile Hekimliği",
+          location: "İzmir / Bornova",
           quota: 2,
           applicants: 15,
-          deadline: '2024-01-30',
-          status: 'closed',
+          deadline: "2024-01-30",
+          status: "closed",
         },
       ];
 
       setKuralar(mockKuralar);
     } catch (error) {
-      console.error('Kura listesi yüklenirken hata:', error);
+      console.error("Kura listesi yüklenirken hata:", error);
     }
   };
 
   const filterKuralar = () => {
     let filtered = kuralar;
 
-    if (selectedFilter !== 'all') {
-      filtered = filtered.filter(kura => kura.status === selectedFilter);
+    if (selectedFilter !== "all") {
+      filtered = filtered.filter((kura) => kura.status === selectedFilter);
     }
 
     if (searchQuery) {
-      filtered = filtered.filter(kura =>
-        kura.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        kura.location.toLowerCase().includes(searchQuery.toLowerCase())
+      filtered = filtered.filter(
+        (kura) =>
+          kura.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          kura.location.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -111,23 +114,37 @@ const KuraListScreen: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return Colors.success;
-      case 'closed': return Colors.error;
-      case 'upcoming': return Colors.warning;
-      default: return Colors.textSecondary;
+      case "active":
+        return Colors.success;
+      case "closed":
+        return Colors.error;
+      case "upcoming":
+        return Colors.warning;
+      default:
+        return Colors.textSecondary;
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'active': return 'Aktif';
-      case 'closed': return 'Kapandı';
-      case 'upcoming': return 'Yakında';
-      default: return 'Bilinmiyor';
+      case "active":
+        return "Aktif";
+      case "closed":
+        return "Kapandı";
+      case "upcoming":
+        return "Yakında";
+      default:
+        return "Bilinmiyor";
     }
   };
 
-  const renderKuraItem = ({item, index}: {item: KuraItem; index: number}) => (
+  const renderKuraItem = ({
+    item,
+    index,
+  }: {
+    item: KuraItem;
+    index: number;
+  }) => (
     <Animated.View
       style={[
         styles.kuraCard,
@@ -155,7 +172,12 @@ const KuraListScreen: React.FC = () => {
           <Text style={styles.kuraTitle} numberOfLines={2}>
             {item.title}
           </Text>
-          <View style={[styles.statusBadge, {backgroundColor: getStatusColor(item.status)}]}>
+          <View
+            style={[
+              styles.statusBadge,
+              { backgroundColor: getStatusColor(item.status) },
+            ]}
+          >
             <Text style={styles.statusText}>{getStatusText(item.status)}</Text>
           </View>
         </View>
@@ -184,7 +206,10 @@ const KuraListScreen: React.FC = () => {
     </Animated.View>
   );
 
-  const renderFilterButton = (filter: 'all' | 'active' | 'closed', label: string) => (
+  const renderFilterButton = (
+    filter: "all" | "active" | "closed",
+    label: string
+  ) => (
     <TouchableOpacity
       style={[
         styles.filterButton,
@@ -226,7 +251,7 @@ const KuraListScreen: React.FC = () => {
             onChangeText={setSearchQuery}
           />
           {searchQuery.length > 0 && (
-            <TouchableOpacity onPress={() => setSearchQuery('')}>
+            <TouchableOpacity onPress={() => setSearchQuery("")}>
               <Icon name="clear" size={20} color={Colors.textSecondary} />
             </TouchableOpacity>
           )}
@@ -235,9 +260,9 @@ const KuraListScreen: React.FC = () => {
 
       {/* Filter Buttons */}
       <View style={styles.filterContainer}>
-        {renderFilterButton('all', 'Tümü')}
-        {renderFilterButton('active', 'Aktif')}
-        {renderFilterButton('closed', 'Kapandı')}
+        {renderFilterButton("all", "Tümü")}
+        {renderFilterButton("active", "Aktif")}
+        {renderFilterButton("closed", "Kapandı")}
       </View>
 
       {/* Kura List */}
@@ -275,9 +300,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -285,7 +310,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
   },
   filterIcon: {
@@ -296,8 +321,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   searchInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: Colors.surface,
     borderRadius: 12,
     paddingHorizontal: 16,
@@ -312,7 +337,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   filterContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 20,
     paddingBottom: 16,
     gap: 12,
@@ -331,7 +356,7 @@ const styles = StyleSheet.create({
   },
   filterButtonText: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.textSecondary,
   },
   filterButtonTextActive: {
@@ -351,15 +376,15 @@ const styles = StyleSheet.create({
     ...GlobalStyles.shadow,
   },
   kuraHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: 12,
   },
   kuraTitle: {
     flex: 1,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.text,
     marginRight: 12,
   },
@@ -370,12 +395,12 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.textOnPrimary,
   },
   kuraLocation: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 12,
   },
   locationText: {
@@ -384,13 +409,13 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   kuraStats: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 12,
   },
   statItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   statText: {
     fontSize: 14,
@@ -398,8 +423,8 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   kuraDeadline: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   deadlineText: {
     fontSize: 14,
@@ -407,13 +432,13 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   emptyContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 60,
   },
   emptyText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.textSecondary,
     marginTop: 16,
   },
@@ -421,7 +446,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.textLight,
     marginTop: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
